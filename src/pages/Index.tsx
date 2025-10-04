@@ -3,19 +3,21 @@ import Hero from "@/components/Hero";
 import Styles from "@/components/Styles";
 import Services from "@/components/Services";
 import Equipment from "@/components/Equipment";
-import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+import GlassBackground from "@/components/GlassBackground";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative page-transition">
+      <GlassBackground />
       <Navigation />
-      <main>
+      <main className="relative z-10">
         <Hero />
         <Styles />
         <Services />
         <Equipment />
-        <Contact />
       </main>
+      <Footer />
     </div>
   );
 };

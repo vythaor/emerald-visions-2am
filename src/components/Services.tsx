@@ -1,4 +1,5 @@
-import { Check } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 
 const Services = () => {
@@ -47,7 +48,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20">
+    <section id="services" className="py-20 relative">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
@@ -62,34 +63,38 @@ const Services = () => {
           {services.map((service, index) => (
             <Card
               key={service.title}
-              className="p-6 bg-card border-border hover:border-primary/50 transition-all hover:shadow-glow animate-fade-in"
+              className="glass-card p-6 border-border hover:border-primary/50 transition-all hover-lift hover:shadow-glow animate-fade-in group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <h3 className="font-display text-xl font-bold mb-4 text-foreground">
-                {service.title}
-              </h3>
-              <ul className="space-y-3">
-                {service.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <Check className="text-primary mt-0.5 shrink-0" size={16} />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-5 blur-3xl transition-opacity duration-700 rounded-lg" />
+              <div className="relative z-10">
+                <h3 className="font-display text-xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors">
+                  {service.title}
+                </h3>
+                <ul className="space-y-3">
+                  {service.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <Check className="text-primary mt-0.5 shrink-0 group-hover:scale-110 transition-transform" size={16} />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </Card>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-12 text-center glass rounded-2xl p-6 max-w-2xl mx-auto border border-primary/20">
           <p className="text-muted-foreground mb-4">
             All packages include professional editing and color grading
           </p>
-          <a
-            href="#contact"
-            className="inline-block text-primary font-semibold hover:underline"
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-2 text-primary font-semibold hover:underline group"
           >
-            Contact us for custom packages →
-          </a>
+            <span>View all services & pricing</span>
+            <ArrowRight className="transition-transform group-hover:translate-x-1" size={18} />
+          </Link>
         </div>
       </div>
     </section>

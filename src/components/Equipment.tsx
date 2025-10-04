@@ -1,4 +1,5 @@
-import { Camera, Lightbulb, Monitor, Settings } from "lucide-react";
+import { Camera, Lightbulb, Monitor, Settings, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import equipmentImg from "@/assets/equipment.jpg";
 
 const Equipment = () => {
@@ -34,7 +35,7 @@ const Equipment = () => {
   ];
 
   return (
-    <section id="equipment" className="py-20 bg-muted/30">
+    <section id="equipment" className="py-20 bg-muted/30 relative">
       <div className="container mx-auto px-4">
         {/* Equipment Section */}
         <div className="mb-20">
@@ -52,34 +53,36 @@ const Equipment = () => {
               {gear.map((item, index) => (
                 <div
                   key={item.title}
-                  className="flex gap-4 p-4 rounded-lg bg-card/50 backdrop-blur hover:bg-card transition-all animate-fade-in"
+                  className="flex gap-4 p-6 rounded-2xl glass-card hover:glass-strong hover-lift transition-all animate-fade-in group"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:scale-110 transition-transform">
                       <item.icon className="text-primary" size={24} />
                     </div>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-1">{item.title}</h3>
+                    <h3 className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors">
+                      {item.title}
+                    </h3>
                     <p className="text-muted-foreground text-sm">{item.description}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="rounded-lg overflow-hidden shadow-soft">
+            <div className="rounded-3xl overflow-hidden shadow-soft glass-card p-4 hover-lift transition-all">
               <img
                 src={equipmentImg}
                 alt="Professional camera equipment"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover rounded-2xl"
               />
             </div>
           </div>
         </div>
 
         {/* Workflow Section */}
-        <div>
+        <div className="mb-12">
           <div className="text-center mb-12">
             <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
               Our <span className="bg-gradient-primary bg-clip-text text-transparent">Workflow</span>
@@ -96,19 +99,33 @@ const Equipment = () => {
             {workflow.map((item, index) => (
               <div
                 key={item.step}
-                className="flex-1 relative animate-fade-in"
+                className="flex-1 relative animate-fade-in group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-primary flex items-center justify-center text-2xl font-bold shadow-glow relative z-10">
+                <div className="text-center glass-card rounded-2xl p-6 hover-lift hover:shadow-glow transition-all">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-primary flex items-center justify-center text-2xl font-bold shadow-glow relative z-10 group-hover:scale-110 transition-transform">
                     {item.step}
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                    {item.title}
+                  </h3>
                   <p className="text-muted-foreground text-sm">{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center glass-card rounded-2xl p-8 border border-primary/20">
+          <p className="text-muted-foreground mb-4">Want to see our full equipment list and process?</p>
+          <Link
+            to="/equipment"
+            className="inline-flex items-center gap-2 text-primary font-semibold hover:underline group"
+          >
+            <span>Learn more about our workflow</span>
+            <ArrowRight className="transition-transform group-hover:translate-x-1" size={18} />
+          </Link>
         </div>
       </div>
     </section>
