@@ -3,9 +3,9 @@ import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from "lucide-react"
 
 const Footer = () => {
   const socialLinks = [
-    { icon: Instagram, url: "https://instagram.com/2amstudio", label: "Instagram" },
+    { icon: Instagram, url: "https://instagram.com/2amstudio.vn", label: "Instagram" },
     { icon: Facebook, url: "https://facebook.com/2amstudio", label: "Facebook" },
-    { icon: Twitter, url: "https://twitter.com/2amstudio", label: "Twitter" },
+    // { icon: Twitter, url: "https://twitter.com/2amstudio", label: "Twitter" },
   ];
 
   const quickLinks = [
@@ -25,7 +25,7 @@ const Footer = () => {
               2amstudio
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Capturing moments with artistic excellence since 2015
+              Capturing moments with artistic excellence since 2022
             </p>
           </div>
 
@@ -52,7 +52,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Mail size={16} className="text-primary" />
-                <span>hello@2amstudio.com</span>
+                <span>phvythao@gmail.com</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={16} className="text-primary" />
@@ -60,7 +60,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <MapPin size={16} className="text-primary" />
-                <span>Los Angeles, CA</span>
+                <span>Manchester, UK & Ho Chi Minh City, Vietnam</span>
               </li>
             </ul>
           </div>

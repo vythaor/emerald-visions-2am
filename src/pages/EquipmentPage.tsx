@@ -9,32 +9,32 @@ const EquipmentPage = () => {
     {
       icon: Camera,
       title: "Professional Cameras",
-      description: "Canon EOS R5 & Sony A7R IV - Full-frame mirrorless systems delivering 45+ megapixel resolution",
+      description: "Sony A7 III (UK), Fuji Xpro2 (VN) - Full-frame mirrorless systems delivering 45+ megapixel resolution",
       specs: ["45MP Resolution", "8K Video", "ISO 100-51,200"],
     },
-    {
-      icon: Lightbulb,
-      title: "Studio Lighting",
-      description: "Profoto & Godox lighting systems with continuous and strobe options for perfect illumination",
-      specs: ["1000W Power", "TTL Support", "Wireless Control"],
-    },
+    // {
+    //   icon: Lightbulb,
+    //   title: "Studio Lighting",
+    //   description: "Profoto & Godox lighting systems with continuous and strobe options for perfect illumination",
+    //   specs: ["1000W Power", "TTL Support", "Wireless Control"],
+    // },
     {
       icon: Monitor,
       title: "Editing Suite",
       description: "Adobe Creative Suite with calibrated displays for professional color grading and retouching",
-      specs: ["4K Displays", "Color Calibrated", "DCI-P3 Gamut"],
+      specs: ["Lightroom", "Photoshop", "Evoto"],
     },
     {
       icon: Settings,
       title: "Premium Lenses",
-      description: "Professional glass collection including 24-70mm f/2.8, 70-200mm f/2.8, and 85mm f/1.4",
+      description: "Professional glass collection including Tamron 28-75mm f/2.8 G2 and Fuji  XF 35 f/1.4 R",
       specs: ["Weather Sealed", "Fast Aperture", "Image Stabilization"],
     },
     {
       icon: Cpu,
       title: "Backup Systems",
       description: "Redundant storage and dual camera setups ensuring your memories are never lost",
-      specs: ["RAID Storage", "Cloud Backup", "Dual Cameras"],
+      specs: ["Google Drive"],
     },
   ];
 
@@ -147,7 +147,7 @@ const EquipmentPage = () => {
                 {/* Floating stats */}
                 <div className="absolute -bottom-6 -right-6 glass-strong rounded-2xl p-6 border border-primary/30 hover-lift">
                   <p className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                    10+
+                    3+
                   </p>
                   <p className="text-sm text-muted-foreground">Years Experience</p>
                 </div>

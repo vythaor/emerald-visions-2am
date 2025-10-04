@@ -8,6 +8,12 @@ import StylesPage from "./pages/StylesPage";
 import ServicesPage from "./pages/ServicesPage";
 import EquipmentPage from "./pages/EquipmentPage";
 import ContactPage from "./pages/ContactPage";
+import PortraitStylePage from "./pages/PortraitStylePage";
+import WeddingStylePage from "./pages/WeddingStylePage";
+import SportStylePage from "./pages/SportStylePage";
+import OutdoorStylePage from "./pages/OutdoorStylePage";
+import EventStylePage from "./pages/EventStylePage";
+import HolidayStylePage from "./pages/HolidayStylePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +27,12 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/styles" element={<StylesPage />} />
+          <Route path="/styles/portrait" element={<PortraitStylePage />} />
+          <Route path="/styles/wedding" element={<WeddingStylePage />} />
+          <Route path="/styles/sport" element={<SportStylePage />} />
+          <Route path="/styles/outdoor" element={<OutdoorStylePage />} />
+          <Route path="/styles/events" element={<EventStylePage />} />
+          <Route path="/styles/holiday" element={<HolidayStylePage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/equipment" element={<EquipmentPage />} />
           <Route path="/contact" element={<ContactPage />} />

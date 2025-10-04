@@ -18,10 +18,10 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="glass-strong rounded-3xl p-12 max-w-4xl mx-auto border border-white/10">
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-fade-in-up glow-text">
-            Capturing <span className="bg-gradient-primary bg-clip-text text-transparent">Moments</span>
+            2am<span className="bg-gradient-primary bg-clip-text text-transparent">studio</span>
           </h1>
           <p className="text-xl md:text-2xl text-foreground/80 mb-8 max-w-2xl mx-auto animate-fade-in-up leading-relaxed" style={{ animationDelay: "0.2s" }}>
-            Professional photography studio specializing in portraits, weddings, events, and commercial work
+            Photography studio in United Kingdom and Vietnam
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
             <Link to="/styles">

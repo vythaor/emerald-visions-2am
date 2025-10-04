@@ -15,36 +15,42 @@ const StylesPage = () => {
       description: "Elegant studio portraits and fashion model photography with professional lighting. Capturing personality, elegance, and style in every frame.",
       image: portraitImg,
       features: ["Studio Sessions", "Fashion Editorial", "Headshots", "Personal Branding"],
+      link: "/styles/portrait",
     },
     {
       title: "Wedding",
       description: "Romantic wedding moments captured with artistic storytelling. From intimate ceremonies to grand celebrations.",
       image: weddingImg,
       features: ["Full Day Coverage", "Engagement Shoots", "Wedding Albums", "Cinematic Style"],
+      link: "/styles/wedding",
     },
     {
       title: "Sport & Action",
       description: "Dynamic sports photography freezing moments of peak performance. Energy, motion, and triumph captured perfectly.",
       image: sportImg,
       features: ["Action Shots", "Team Photos", "Event Coverage", "Athletic Portraits"],
+      link: "/styles/sport",
     },
     {
       title: "Outdoor & Nature",
       description: "Beautiful natural landscapes and outdoor portrait sessions. Harnessing natural light for stunning results.",
       image: outdoorImg,
       features: ["Golden Hour", "Scenic Locations", "Nature Portraits", "Adventure Sessions"],
+      link: "/styles/outdoor",
     },
     {
       title: "Events & Corporate",
       description: "Professional event coverage and corporate photography. Capturing the essence of your professional moments.",
       image: eventImg,
       features: ["Conference Coverage", "Corporate Events", "Product Launches", "Networking Events"],
+      link: "/styles/events",
     },
     {
       title: "New Year & Christmas",
       description: "Festive holiday photography with creative seasonal themes. Making your celebrations unforgettable.",
       image: portraitImg,
       features: ["Holiday Cards", "Family Portraits", "Festive Themes", "Seasonal Decor"],
+      link: "/styles/holiday",
     },
   ];
 
@@ -118,10 +124,13 @@ const StylesPage = () => {
                   </div>
 
                   {/* CTA */}
-                  <button className="flex items-center gap-2 text-primary font-semibold group/btn">
+                  <Link 
+                    to={style.link}
+                    className="flex items-center gap-2 text-primary font-semibold group/btn hover:text-primary-glow transition-colors"
+                  >
                     <span>View Gallery</span>
                     <ArrowRight className="transition-transform duration-300 group-hover/btn:translate-x-2" size={18} />
-                  </button>
+                  </Link>
                 </div>
 
                 {/* Decorative corner */}

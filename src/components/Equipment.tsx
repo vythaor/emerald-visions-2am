@@ -7,13 +7,13 @@ const Equipment = () => {
     {
       icon: Camera,
       title: "Professional Cameras",
-      description: "Canon EOS R5, Sony A7R IV - Full-frame mirrorless systems for exceptional image quality",
+      description: "Sony A7 III (UK), Fuji Xpro2 (VN) - Full-frame mirrorless systems for exceptional image quality",
     },
-    {
-      icon: Lightbulb,
-      title: "Studio Lighting",
-      description: "Profoto & Godox lighting systems with continuous and strobe options",
-    },
+    // {
+    //   icon: Lightbulb,
+    //   title: "Studio Lighting",
+    //   description: "Profoto & Godox lighting systems with continuous and strobe options",
+    // },
     {
       icon: Monitor,
       title: "Editing Suite",
@@ -22,7 +22,7 @@ const Equipment = () => {
     {
       icon: Settings,
       title: "Premium Lenses",
-      description: "24-70mm f/2.8, 70-200mm f/2.8, 85mm f/1.4 - Professional glass collection",
+      description: "Tamron 28-75mm f/2.8 G2, Fuji  XF 35 f/1.4 R - Professional glass collection",
     },
   ];
 
