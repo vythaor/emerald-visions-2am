@@ -23,6 +23,7 @@ export default {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
           glow: "hsl(var(--primary-glow))",
+          dark: "hsl(var(--primary-dark))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -51,10 +52,14 @@ export default {
       },
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',
+        'gradient-secondary': 'var(--gradient-secondary)',
         'gradient-overlay': 'var(--gradient-overlay)',
+        'gradient-hover': 'var(--gradient-hover)',
+        'gradient-border': 'var(--gradient-border)',
       },
       boxShadow: {
         'glow': 'var(--shadow-glow)',
+        'glow-strong': 'var(--shadow-glow-strong)',
         'soft': 'var(--shadow-soft)',
       },
       fontFamily: {
@@ -83,12 +88,22 @@ export default {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(0)" },
         },
+        "shimmer": {
+          "0%": { backgroundPosition: "200% center" },
+          "100%": { backgroundPosition: "-200% center" },
+        },
+        "gradient-shift": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.8s ease-out",
         "fade-in-up": "fade-in-up 1s ease-out",
         "scale-in": "scale-in 0.5s ease-out",
         "slide-in": "slide-in 0.6s ease-out",
+        "shimmer": "shimmer 3s linear infinite",
+        "gradient-shift": "gradient-shift 6s ease infinite",
       },
       transitionTimingFunction: {
         'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
