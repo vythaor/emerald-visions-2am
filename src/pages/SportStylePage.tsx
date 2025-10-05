@@ -1,5 +1,7 @@
 import { ArrowLeft, Zap, Sparkles, Camera, Trophy, Users, Target } from "lucide-react";
 import { Link } from "react-router-dom";
+import * as React from "react";
+import ImageDialog from "@/components/ImageDialog";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
 import sportImg from "@/assets/sport-style.jpg";
@@ -36,6 +38,14 @@ const SportStylePage = () => {
       description: "Professional portraits showcasing athletes and their achievements"
     }
   ];
+
+  const [previewOpen, setPreviewOpen] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = React.useState<number>(0);
+
+  const openPreviewAt = (idx: number) => {
+    setSelectedIndex(idx);
+    setPreviewOpen(true);
+  };
 
   return (
     <div className="min-h-screen relative page-transition">
@@ -97,8 +107,9 @@ const SportStylePage = () => {
               {galleryImages.map((image, index) => (
                 <div
                   key={image.id}
-                  className="group relative glass-card rounded-2xl overflow-hidden hover-lift hover:shadow-glow-strong transition-all duration-500 animate-fade-in"
+                  className="group relative glass-card rounded-2xl overflow-hidden hover-lift hover:shadow-glow-strong transition-all duration-500 animate-fade-in cursor-zoom-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
+                  onClick={() => openPreviewAt(index)}
                 >
                   <div className="relative h-80 overflow-hidden">
                     <img
@@ -118,6 +129,14 @@ const SportStylePage = () => {
               ))}
             </div>
           </div>
+
+          <ImageDialog
+            open={previewOpen}
+            onOpenChange={setPreviewOpen}
+            items={galleryImages.map(i => ({ src: i.src, alt: i.alt }))}
+            index={selectedIndex}
+            onIndexChange={setSelectedIndex}
+          />
 
           {/* CTA Section */}
           <div className="text-center glass-card rounded-3xl p-12 border border-primary/20 animate-fade-in">
