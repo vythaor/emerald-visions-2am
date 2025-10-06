@@ -37,7 +37,7 @@ export async function fetchFolderSources(folder: string, max: number = 30): Prom
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Server returned ${res.status}`);
     const data = await res.json();
-    return Array.isArray(data.sources) ? data.sources : [];
+    return Array.isArray(data.images) ? data.images.map((img: any) => img.url) : [];
   } catch (error) {
     console.warn(`[cloudinary] Server unavailable, returning empty array for ${folder}:`, error);
     // Return empty array instead of non-existent fallback images
