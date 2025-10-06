@@ -36,6 +36,8 @@ function sendJson(res, status, body) {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Max-Age': '86400',
   });
   res.end(json);
 }
@@ -43,12 +45,16 @@ function sendJson(res, status, body) {
 const server = http.createServer(async (req, res) => {
   const { pathname, query } = parse(req.url || '', true);
 
+  // Enhanced CORS headers for production
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Max-Age': '86400', // 24 hours
+  };
+
   if (req.method === 'OPTIONS') {
-    res.writeHead(204, {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    });
+    res.writeHead(204, corsHeaders);
     return res.end();
   }
 
@@ -85,7 +91,11 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (pathname === '/health') {
-    return sendJson(res, 200, { ok: true });
+    return sendJson(res, 200, { 
+      ok: true, 
+      timestamp: new Date().toISOString(),
+      cloudinary_configured: !!cloudName
+    });
   }
 
   if (pathname === '/api/test' && req.method === 'GET') {
