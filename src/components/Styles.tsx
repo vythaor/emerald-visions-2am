@@ -65,40 +65,43 @@ const Styles = () => {
           </p>
         </div>
 
-        {/* Unique Staggered Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-6 mb-6">
-          {/* Portrait - Large */}
+        {/* Photography Styles Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          {/* Indoor & Studio */}
           <StyleCard 
             {...styles[0]} 
-            className="md:col-span-3 md:row-span-2"
+            className=""
             index={0}
           />
           
-          {/* Wedding - Medium */}
+          {/* Wedding */}
           <StyleCard 
             {...styles[1]} 
-            className="md:col-span-3"
+            className=""
             index={1}
           />
           
-          {/* Sport - Medium */}
+          {/* Sport & Action */}
           <StyleCard 
             {...styles[2]} 
-            className="md:col-span-3"
+            className=""
             index={2}
           />
-          
-          {/* Outdoor - Large */}
+        </div>
+
+        {/* Second Row - Outdoor and Event */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          {/* Outdoor & Nature - Large Left */}
           <StyleCard 
             {...styles[3]} 
-            className="md:col-span-4 md:row-span-2"
+            className=""
             index={3}
           />
           
-          {/* Event - Medium */}
+          {/* Events & Corporate - Right */}
           <StyleCard 
             {...styles[4]} 
-            className="md:col-span-2 md:row-span-2"
+            className=""
             index={4}
           />
         </div>
@@ -149,7 +152,7 @@ const StyleCard = ({ title, description, image, className = "", index, route }: 
       </div>
 
       {/* Main card content */}
-      <div className="relative h-full min-h-[300px] md:min-h-[400px] overflow-hidden rounded-2xl shadow-soft group-hover:shadow-glow-strong transition-all duration-700">
+      <div className="relative h-full min-h-[300px] md:min-h-[400px] w-full overflow-hidden rounded-2xl shadow-soft group-hover:shadow-glow-strong transition-all duration-700">
         {/* Image with advanced hover effect */}
         <div className="absolute inset-0 overflow-hidden">
           <img
@@ -218,7 +221,7 @@ const StyleCard = ({ title, description, image, className = "", index, route }: 
 
   if (route) {
     return (
-      <Link to={route} className="block h-full">
+      <Link to={route} className="block h-full w-full">
         {cardElement}
       </Link>
     );
