@@ -1,5 +1,6 @@
 import { Camera, Sparkles } from "lucide-react";
 import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
+import { Link } from "react-router-dom";
 
 const Styles = () => {
   const styles = [
@@ -8,30 +9,35 @@ const Styles = () => {
           description: "Professional indoor photography with controlled lighting and studio environments",
           image: cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM),
           size: "large", // Takes more space
+          route: "/styles/indoor",
         },
         {
           title: "Wedding",
           description: "Romantic wedding moments captured with artistic storytelling",
           image: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
           size: "medium",
+          route: "/styles/wedding",
         },
         {
           title: "Sport & Action",
           description: "Dynamic sports photography freezing moments of peak performance",
           image: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
           size: "medium",
+          route: "/styles/sport",
         },
         {
           title: "Outdoor & Nature",
           description: "Beautiful natural landscapes and outdoor portrait sessions",
           image: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
           size: "large",
+          route: "/styles/outdoor",
         },
         {
           title: "Events & Corporate",
           description: "Professional event coverage and corporate photography",
           image: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
           size: "medium",
+          route: "/styles/event",
         },
   ];
 
@@ -128,10 +134,11 @@ interface StyleCardProps {
   className?: string;
   index: number;
   size?: string;
+  route?: string;
 }
 
-const StyleCard = ({ title, description, image, className = "", index }: StyleCardProps) => {
-  return (
+const StyleCard = ({ title, description, image, className = "", index, route }: StyleCardProps) => {
+  const CardContent = () => (
     <div
       className={`group relative overflow-hidden rounded-2xl animate-fade-in ${className}`}
       style={{ animationDelay: `${index * 0.15}s` }}
@@ -208,6 +215,16 @@ const StyleCard = ({ title, description, image, className = "", index }: StyleCa
       </div>
     </div>
   );
+
+  if (route) {
+    return (
+      <Link to={route} className="block">
+        <CardContent />
+      </Link>
+    );
+  }
+
+  return <CardContent />;
 };
 
 export default Styles;

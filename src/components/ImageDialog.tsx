@@ -52,20 +52,45 @@ const ImageDialog: React.FC<ImageDialogProps> = ({ open, onOpenChange, items, in
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-6xl p-0 bg-transparent border-0 shadow-none">
         {current ? (
-          <div className="relative w-full">
+          <div 
+            className="relative w-full cursor-pointer" 
+            onClick={(e) => {
+              // Close dialog when clicking outside the image
+              if (e.target === e.currentTarget) {
+                onOpenChange(false);
+              }
+            }}
+          >
             <img
               src={current.src}
               alt={current.alt || "Preview"}
               className="w-full h-full object-contain max-h-[85vh] rounded-lg"
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the image itself
             />
 
             <div className="absolute inset-y-0 left-0 flex items-center pl-2 pr-6">
-              <Button variant="outline" size="icon" className="rounded-full bg-background/70 backdrop-blur" onClick={goPrev}>
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className="rounded-full bg-background/70 backdrop-blur" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goPrev();
+                }}
+              >
                 <ArrowLeft className="h-4 w-4" />
               </Button>
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 pl-6">
-              <Button variant="outline" size="icon" className="rounded-full bg-background/70 backdrop-blur" onClick={goNext}>
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className="rounded-full bg-background/70 backdrop-blur" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goNext();
+                }}
+              >
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
