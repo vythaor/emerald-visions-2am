@@ -26,7 +26,7 @@ export async function fetchFolderSources(folder: string, max: number = 30): Prom
   // Auto-detect server base URL based on environment
   const serverBase = import.meta.env.VITE_IMAGE_SERVER_BASE || 
     (import.meta.env.PROD 
-      ? 'https://studio2am.lovable.app'  // Your specific Loveable domain
+      ? 'https://emerald-visions-backend.vercel.app/'  // Replace with your deployed backend URL
       : 'http://localhost:3001' // In development, use local server
     );
   
