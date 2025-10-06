@@ -4,8 +4,7 @@ import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
-import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources } from "@/lib/cloudinary";
-const FALLBACK_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
+import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources, cloudinaryUrl } from "@/lib/cloudinary";
 
 const EventStylePage = () => {
   const [eventSources, setEventSources] = React.useState<string[]>([]);
@@ -23,7 +22,7 @@ const EventStylePage = () => {
         // Ignore errors and use fallback sources
       }
       if (!cancelled) {
-        setEventSources([FALLBACK_IMG]);
+        setEventSources([cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM)]);
       }
     })();
     return () => {

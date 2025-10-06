@@ -4,8 +4,7 @@ import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
-import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources } from "@/lib/cloudinary";
-const FALLBACK_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
+import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources, cloudinaryUrl } from "@/lib/cloudinary";
 
 const OutdoorStylePage = () => {
   const [outdoorSources, setOutdoorSources] = React.useState<string[]>([]);
@@ -27,7 +26,7 @@ const OutdoorStylePage = () => {
         setOutdoorSources([
           "https://res.cloudinary.com/ddwq9besf/image/upload/v1759759667/IMG_2769_wry0zl.jpg",
           "https://res.cloudinary.com/ddwq9besf/image/upload/v1759759652/DSCF6089_rwcoif.jpg",
-        ].map((pid) => resolveCloudinarySource(pid, DEFAULT_TRANSFORM)).concat([FALLBACK_IMG]));
+        ].map((pid) => resolveCloudinarySource(pid, DEFAULT_TRANSFORM)).concat([cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM)]));
       }
     })();
     return () => {

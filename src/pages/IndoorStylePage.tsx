@@ -4,8 +4,7 @@ import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
-import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources } from "@/lib/cloudinary";
-const FALLBACK_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
+import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources, cloudinaryUrl } from "@/lib/cloudinary";
 
 const IndoorStylePage = () => {
   const [indoorSources, setIndoorSources] = React.useState<string[]>([]);
@@ -23,7 +22,8 @@ const IndoorStylePage = () => {
         // Ignore errors and use fallback sources
       }
       if (!cancelled) {
-        setIndoorSources([FALLBACK_IMG]);
+        // Use the cover image as fallback
+        setIndoorSources([cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM)]);
       }
     })();
     return () => {
