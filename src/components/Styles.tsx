@@ -138,7 +138,7 @@ interface StyleCardProps {
 }
 
 const StyleCard = ({ title, description, image, className = "", index, route }: StyleCardProps) => {
-  const CardContent = () => (
+  const cardElement = (
     <div
       className={`group relative overflow-hidden rounded-2xl animate-fade-in ${className}`}
       style={{ animationDelay: `${index * 0.15}s` }}
@@ -218,13 +218,13 @@ const StyleCard = ({ title, description, image, className = "", index, route }: 
 
   if (route) {
     return (
-      <Link to={route} className="block">
-        <CardContent />
+      <Link to={route} className="block h-full">
+        {cardElement}
       </Link>
     );
   }
 
-  return <CardContent />;
+  return cardElement;
 };
 
 export default Styles;
