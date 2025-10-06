@@ -1,6 +1,6 @@
 import { Camera, Lightbulb, Monitor, Settings, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import equipmentImg from "@/assets/equipment.jpg";
+const CLOUDINARY_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
 
 const Equipment = () => {
   const gear = [
@@ -73,7 +73,7 @@ const Equipment = () => {
 
             <div className="rounded-3xl overflow-hidden shadow-soft glass-card p-4 hover-lift transition-all">
               <img
-                src={equipmentImg}
+                src={CLOUDINARY_IMG}
                 alt="Professional camera equipment"
                 className="w-full h-full object-cover rounded-2xl"
               />

@@ -4,17 +4,39 @@ import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
-import weddingImg from "@/assets/wedding-style.jpg";
+import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources } from "@/lib/cloudinary";
+const FALLBACK_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
 
 const WeddingStylePage = () => {
-  const galleryImages = [
-    { id: 1, src: weddingImg, alt: "Wedding 1", category: "Ceremony" },
-    { id: 2, src: weddingImg, alt: "Wedding 2", category: "Reception" },
-    { id: 3, src: weddingImg, alt: "Wedding 3", category: "Engagement" },
-    { id: 4, src: weddingImg, alt: "Wedding 4", category: "Portraits" },
-    { id: 5, src: weddingImg, alt: "Wedding 5", category: "Details" },
-    { id: 6, src: weddingImg, alt: "Wedding 6", category: "Candid" },
-  ];
+  const [weddingSources, setWeddingSources] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const sources = await fetchFolderSources('wedding', 30);
+        if (!cancelled && sources.length) {
+          setWeddingSources(sources);
+          return;
+        }
+      } catch (e) {
+        // Ignore errors and use fallback sources
+      }
+      if (!cancelled) {
+        setWeddingSources([FALLBACK_IMG]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    }
+  }, []);
+
+  const galleryImages = weddingSources.map((src, idx) => ({
+    id: idx + 1,
+    src,
+    alt: `Wedding ${idx + 1}`,
+    category: ["Ceremony", "Reception", "Engagement", "Portraits", "Details", "Candid"][idx % 6],
+  }));
 
   const features = [
     {

@@ -1,42 +1,38 @@
 import { Camera, Sparkles } from "lucide-react";
-import portraitImg from "@/assets/portrait-style.jpg";
-import weddingImg from "@/assets/wedding-style.jpg";
-import sportImg from "@/assets/sport-style.jpg";
-import outdoorImg from "@/assets/outdoor-style.jpg";
-import eventImg from "@/assets/event-style.jpg";
+import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
 
 const Styles = () => {
   const styles = [
-    {
-      title: "Portrait & Model",
-      description: "Elegant studio portraits and fashion model photography with professional lighting",
-      image: portraitImg,
-      size: "large", // Takes more space
-    },
-    {
-      title: "Wedding",
-      description: "Romantic wedding moments captured with artistic storytelling",
-      image: weddingImg,
-      size: "medium",
-    },
-    {
-      title: "Sport & Action",
-      description: "Dynamic sports photography freezing moments of peak performance",
-      image: sportImg,
-      size: "medium",
-    },
-    {
-      title: "Outdoor & Nature",
-      description: "Beautiful natural landscapes and outdoor portrait sessions",
-      image: outdoorImg,
-      size: "large",
-    },
-    {
-      title: "Events & Corporate",
-      description: "Professional event coverage and corporate photography",
-      image: eventImg,
-      size: "medium",
-    },
+        {
+          title: "Indoor & Studio",
+          description: "Professional indoor photography with controlled lighting and studio environments",
+          image: cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM),
+          size: "large", // Takes more space
+        },
+        {
+          title: "Wedding",
+          description: "Romantic wedding moments captured with artistic storytelling",
+          image: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
+          size: "medium",
+        },
+        {
+          title: "Sport & Action",
+          description: "Dynamic sports photography freezing moments of peak performance",
+          image: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
+          size: "medium",
+        },
+        {
+          title: "Outdoor & Nature",
+          description: "Beautiful natural landscapes and outdoor portrait sessions",
+          image: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
+          size: "large",
+        },
+        {
+          title: "Events & Corporate",
+          description: "Professional event coverage and corporate photography",
+          image: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
+          size: "medium",
+        },
   ];
 
   return (

@@ -1,7 +1,7 @@
 import { ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-image.jpg";
+const CLOUDINARY_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
 
 const Hero = () => {
   return (
@@ -9,7 +9,7 @@ const Hero = () => {
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        style={{ backgroundImage: `url(${CLOUDINARY_IMG})` }}
       >
         <div className="absolute inset-0 bg-gradient-overlay" />
       </div>

@@ -4,17 +4,39 @@ import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
-import eventImg from "@/assets/event-style.jpg";
+import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources } from "@/lib/cloudinary";
+const FALLBACK_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
 
 const EventStylePage = () => {
-  const galleryImages = [
-    { id: 1, src: eventImg, alt: "Event 1", category: "Conference" },
-    { id: 2, src: eventImg, alt: "Event 2", category: "Corporate" },
-    { id: 3, src: eventImg, alt: "Event 3", category: "Product Launch" },
-    { id: 4, src: eventImg, alt: "Event 4", category: "Networking" },
-    { id: 5, src: eventImg, alt: "Event 5", category: "Awards" },
-    { id: 6, src: eventImg, alt: "Event 6", category: "Meeting" },
-  ];
+  const [eventSources, setEventSources] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const sources = await fetchFolderSources('event', 30);
+        if (!cancelled && sources.length) {
+          setEventSources(sources);
+          return;
+        }
+      } catch (e) {
+        // Ignore errors and use fallback sources
+      }
+      if (!cancelled) {
+        setEventSources([FALLBACK_IMG]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    }
+  }, []);
+
+  const galleryImages = eventSources.map((src, idx) => ({
+    id: idx + 1,
+    src,
+    alt: `Event ${idx + 1}`,
+    category: ["Conference", "Corporate", "Product Launch", "Networking", "Awards", "Meeting"][idx % 6],
+  }));
 
   const features = [
     {

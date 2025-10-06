@@ -4,17 +4,39 @@ import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
-import sportImg from "@/assets/sport-style.jpg";
+import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources } from "@/lib/cloudinary";
+const FALLBACK_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
 
 const SportStylePage = () => {
-  const galleryImages = [
-    { id: 1, src: sportImg, alt: "Sport 1", category: "Action" },
-    { id: 2, src: sportImg, alt: "Sport 2", category: "Team" },
-    { id: 3, src: sportImg, alt: "Sport 3", category: "Individual" },
-    { id: 4, src: sportImg, alt: "Sport 4", category: "Event" },
-    { id: 5, src: sportImg, alt: "Sport 5", category: "Training" },
-    { id: 6, src: sportImg, alt: "Sport 6", category: "Victory" },
-  ];
+  const [sportSources, setSportSources] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const sources = await fetchFolderSources('sport', 30);
+        if (!cancelled && sources.length) {
+          setSportSources(sources);
+          return;
+        }
+      } catch (e) {
+        // Ignore errors and use fallback sources
+      }
+      if (!cancelled) {
+        setSportSources([FALLBACK_IMG]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    }
+  }, []);
+
+  const galleryImages = sportSources.map((src, idx) => ({
+    id: idx + 1,
+    src,
+    alt: `Sport ${idx + 1}`,
+    category: ["Action", "Team", "Individual", "Event", "Training", "Victory"][idx % 6],
+  }));
 
   const features = [
     {

@@ -2,56 +2,45 @@ import { Camera, Sparkles, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
-import portraitImg from "@/assets/portrait-style.jpg";
-import weddingImg from "@/assets/wedding-style.jpg";
-import sportImg from "@/assets/sport-style.jpg";
-import outdoorImg from "@/assets/outdoor-style.jpg";
-import eventImg from "@/assets/event-style.jpg";
+import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
 
 const StylesPage = () => {
   const styles = [
-    {
-      title: "Portrait & Model",
-      description: "Elegant studio portraits and fashion model photography with professional lighting. Capturing personality, elegance, and style in every frame.",
-      image: portraitImg,
-      features: ["Studio Sessions", "Fashion Editorial", "Headshots", "Personal Branding"],
-      link: "/styles/portrait",
-    },
-    {
-      title: "Wedding",
-      description: "Romantic wedding moments captured with artistic storytelling. From intimate ceremonies to grand celebrations.",
-      image: weddingImg,
-      features: ["Full Day Coverage", "Engagement Shoots", "Wedding Albums", "Cinematic Style"],
-      link: "/styles/wedding",
-    },
-    {
-      title: "Sport & Action",
-      description: "Dynamic sports photography freezing moments of peak performance. Energy, motion, and triumph captured perfectly.",
-      image: sportImg,
-      features: ["Action Shots", "Team Photos", "Event Coverage", "Athletic Portraits"],
-      link: "/styles/sport",
-    },
-    {
-      title: "Outdoor & Nature",
-      description: "Beautiful natural landscapes and outdoor portrait sessions. Harnessing natural light for stunning results.",
-      image: outdoorImg,
-      features: ["Golden Hour", "Scenic Locations", "Nature Portraits", "Adventure Sessions"],
-      link: "/styles/outdoor",
-    },
-    {
-      title: "Events & Corporate",
-      description: "Professional event coverage and corporate photography. Capturing the essence of your professional moments.",
-      image: eventImg,
-      features: ["Conference Coverage", "Corporate Events", "Product Launches", "Networking Events"],
-      link: "/styles/events",
-    },
-    {
-      title: "New Year & Christmas",
-      description: "Festive holiday photography with creative seasonal themes. Making your celebrations unforgettable.",
-      image: portraitImg,
-      features: ["Holiday Cards", "Family Portraits", "Festive Themes", "Seasonal Decor"],
-      link: "/styles/holiday",
-    },
+        {
+          title: "Indoor & Studio",
+          description: "Professional indoor photography with controlled lighting and studio environments. Capturing personality, elegance, and style in every frame.",
+          image: cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM),
+          features: ["Studio Sessions", "Fashion Editorial", "Headshots", "Personal Branding"],
+          link: "/styles/indoor",
+        },
+        {
+          title: "Wedding",
+          description: "Romantic wedding moments captured with artistic storytelling. From intimate ceremonies to grand celebrations.",
+          image: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
+          features: ["Full Day Coverage", "Engagement Shoots", "Wedding Albums", "Cinematic Style"],
+          link: "/styles/wedding",
+        },
+        {
+          title: "Sport & Action",
+          description: "Dynamic sports photography freezing moments of peak performance. Energy, motion, and triumph captured perfectly.",
+          image: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
+          features: ["Action Shots", "Team Photos", "Event Coverage", "Athletic Portraits"],
+          link: "/styles/sport",
+        },
+        {
+          title: "Outdoor & Nature",
+          description: "Beautiful natural landscapes and outdoor portrait sessions. Harnessing natural light for stunning results.",
+          image: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
+          features: ["Golden Hour", "Scenic Locations", "Nature Portraits", "Adventure Sessions"],
+          link: "/styles/outdoor",
+        },
+        {
+          title: "Events & Corporate",
+          description: "Professional event coverage and corporate photography. Capturing the essence of your professional moments.",
+          image: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
+          features: ["Conference Coverage", "Corporate Events", "Product Launches", "Networking Events"],
+          link: "/styles/events",
+        },
   ];
 
   return (

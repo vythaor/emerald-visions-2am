@@ -4,17 +4,43 @@ import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
-import outdoorImg from "@/assets/outdoor-style.jpg";
+import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources } from "@/lib/cloudinary";
+const FALLBACK_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
 
 const OutdoorStylePage = () => {
-  const galleryImages = [
-    { id: 1, src: outdoorImg, alt: "Outdoor 1", category: "Golden Hour" },
-    { id: 2, src: outdoorImg, alt: "Outdoor 2", category: "Landscape" },
-    { id: 3, src: outdoorImg, alt: "Outdoor 3", category: "Portrait" },
-    { id: 4, src: outdoorImg, alt: "Outdoor 4", category: "Adventure" },
-    { id: 5, src: outdoorImg, alt: "Outdoor 5", category: "Nature" },
-    { id: 6, src: outdoorImg, alt: "Outdoor 6", category: "Scenic" },
-  ];
+  const [outdoorSources, setOutdoorSources] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const sources = await fetchFolderSources('outdoor', 30);
+        if (!cancelled && sources.length) {
+          setOutdoorSources(sources);
+          return;
+        }
+      } catch (e) {
+        // Ignore errors and use fallback sources
+      }
+      // fallback to any manual list or fallback image
+      if (!cancelled) {
+        setOutdoorSources([
+          "https://res.cloudinary.com/ddwq9besf/image/upload/v1759759667/IMG_2769_wry0zl.jpg",
+          "https://res.cloudinary.com/ddwq9besf/image/upload/v1759759652/DSCF6089_rwcoif.jpg",
+        ].map((pid) => resolveCloudinarySource(pid, DEFAULT_TRANSFORM)).concat([FALLBACK_IMG]));
+      }
+    })();
+    return () => {
+      cancelled = true;
+    }
+  }, []);
+
+  const galleryImages = outdoorSources.map((src, idx) => ({
+    id: idx + 1,
+    src,
+    alt: `Outdoor ${idx + 1}`,
+    category: ["Golden Hour", "Landscape", "Portrait", "Adventure", "Nature", "Scenic"][idx % 6],
+  }));
 
   const features = [
     {

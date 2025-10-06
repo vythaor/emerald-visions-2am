@@ -2,7 +2,7 @@ import { Camera, Lightbulb, Monitor, Settings, Cpu, ArrowRight } from "lucide-re
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
-import equipmentImg from "@/assets/equipment.jpg";
+const CLOUDINARY_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
 
 const EquipmentPage = () => {
   const gear = [
@@ -138,7 +138,7 @@ const EquipmentPage = () => {
               <div className="relative animate-fade-in" style={{ animationDelay: "0.3s" }}>
                 <div className="relative rounded-3xl overflow-hidden glass-card p-4 hover-lift transition-all hover:shadow-glow-strong">
                   <img
-                    src={equipmentImg}
+                    src={CLOUDINARY_IMG}
                     alt="Professional camera equipment"
                     className="w-full h-full object-cover rounded-2xl"
                   />

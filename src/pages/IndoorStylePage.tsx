@@ -4,23 +4,45 @@ import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
-import portraitImg from "@/assets/portrait-style.jpg";
+import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources } from "@/lib/cloudinary";
+const FALLBACK_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
 
-const PortraitStylePage = () => {
-  const galleryImages = [
-    { id: 1, src: portraitImg, alt: "Portrait 1", category: "Studio" },
-    { id: 2, src: portraitImg, alt: "Portrait 2", category: "Fashion" },
-    { id: 3, src: portraitImg, alt: "Portrait 3", category: "Headshot" },
-    { id: 4, src: portraitImg, alt: "Portrait 4", category: "Editorial" },
-    { id: 5, src: portraitImg, alt: "Portrait 5", category: "Studio" },
-    { id: 6, src: portraitImg, alt: "Portrait 6", category: "Fashion" },
-  ];
+const IndoorStylePage = () => {
+  const [indoorSources, setIndoorSources] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const sources = await fetchFolderSources('indoor', 30);
+        if (!cancelled && sources.length) {
+          setIndoorSources(sources);
+          return;
+        }
+      } catch (e) {
+        // Ignore errors and use fallback sources
+      }
+      if (!cancelled) {
+        setIndoorSources([FALLBACK_IMG]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    }
+  }, []);
+
+  const galleryImages = indoorSources.map((src, idx) => ({
+    id: idx + 1,
+    src,
+    alt: `Indoor ${idx + 1}`,
+    category: ["Studio", "Fashion", "Headshot", "Editorial", "Studio", "Fashion"][idx % 6],
+  }));
 
   const features = [
     {
       icon: Camera,
       title: "Professional Studio",
-      description: "State-of-the-art lighting and equipment for perfect portraits"
+      description: "State-of-the-art lighting and equipment for perfect indoor portraits"
     },
     {
       icon: Palette,
@@ -68,14 +90,14 @@ const PortraitStylePage = () => {
             <div className="inline-flex items-center gap-2 mb-4 px-6 py-3 rounded-full glass-strong border border-primary/30">
               <Sparkles className="text-primary animate-pulse" size={20} />
               <span className="text-sm font-semibold uppercase tracking-wider bg-gradient-primary bg-clip-text text-transparent">
-                Portrait & Model Photography
+                Indoor & Studio Photography
               </span>
             </div>
             <h1 className="font-display text-5xl md:text-7xl font-bold mb-6 glow-text">
-              <span className="bg-gradient-primary bg-clip-text text-transparent">Portrait</span> & Model
+              <span className="bg-gradient-primary bg-clip-text text-transparent">Indoor</span> & Studio
             </h1>
             <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
-              Elegant studio portraits and fashion model photography with professional lighting. 
+              Professional indoor photography with controlled lighting and studio environments. 
               Capturing personality, elegance, and style in every frame.
             </p>
           </div>
@@ -141,10 +163,10 @@ const PortraitStylePage = () => {
           {/* CTA Section */}
           <div className="text-center glass-card rounded-3xl p-12 border border-primary/20 animate-fade-in">
             <h2 className="font-display text-3xl font-bold mb-4">
-              Ready for Your Portrait Session?
+              Ready for Your Indoor Session?
             </h2>
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Let's create stunning portraits that capture your unique personality and style. 
+              Let's create stunning indoor portraits that capture your unique personality and style. 
               Book your session today!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -169,4 +191,4 @@ const PortraitStylePage = () => {
   );
 };
 
-export default PortraitStylePage;
+export default IndoorStylePage;
