@@ -2,6 +2,7 @@ import { Camera, Sparkles, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
+import Footer from "@/components/Footer";
 import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
 
 const StylesPage = () => {
@@ -39,7 +40,7 @@ const StylesPage = () => {
           description: "Professional event coverage and corporate photography. Capturing the essence of your professional moments.",
           image: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
           features: ["Conference Coverage", "Corporate Events", "Product Launches", "Networking Events"],
-          link: "/styles/events",
+          link: "/styles/event",
         },
   ];
 
@@ -146,6 +147,8 @@ const StylesPage = () => {
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Facebook, Mail, Phone, MapPin, Music } from "lucide-react";
 
 const Footer = () => {
   const socialLinks = [
     { icon: Instagram, url: "https://instagram.com/2amstudio.vn", label: "Instagram" },
     { icon: Facebook, url: "https://facebook.com/2amstudio", label: "Facebook" },
-    // { icon: Twitter, url: "https://twitter.com/2amstudio", label: "Twitter" },
+    { icon: Music, url: "https://tiktok.com/@2amstudio.vn", label: "TikTok" },
   ];
 
   const quickLinks = [
@@ -87,7 +87,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 text-center text-muted-foreground text-sm">
-          <p>© 2025 2amstudio. All rights reserved.</p>
+          <p>© 2025 2amstudio. All rights reserved. <a href="https://vythaor.design" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-glow transition-colors">Sherry</a> vibe coding with <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-glow transition-colors">Lovable</a> and <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-glow transition-colors">Cursor.</a></p>
         </div>
       </div>
     </footer>

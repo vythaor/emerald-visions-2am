@@ -4,6 +4,7 @@ import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
+import Footer from "@/components/Footer";
 import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources, cloudinaryUrl } from "@/lib/cloudinary";
 
 const IndoorStylePage = () => {
@@ -187,6 +188,8 @@ const IndoorStylePage = () => {
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 };

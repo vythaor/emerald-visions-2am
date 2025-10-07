@@ -106,23 +106,22 @@ const Styles = () => {
           />
         </div>
 
-        {/* Additional Styles Card */}
-        <div className="relative group overflow-hidden rounded-2xl bg-gradient-secondary p-[2px] animate-fade-in" style={{ animationDelay: "0.5s" }}>
-          <div className="relative h-full bg-card/90 backdrop-blur rounded-2xl p-8 flex items-center justify-center overflow-hidden">
-            {/* Animated gradient border */}
-            <div className="absolute inset-0 bg-gradient-border opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm" />
-            
-            <div className="text-center relative z-10">
-              <div className="relative inline-block mb-4">
-                <Camera className="text-primary mx-auto" size={48} />
-                <div className="absolute inset-0 bg-primary blur-xl opacity-50 animate-pulse" />
-              </div>
-              <h3 className="font-display text-2xl font-bold mb-2">& More Styles</h3>
-              <p className="text-muted-foreground max-w-md">
-                New Year, Christmas, Indoor, Commercial, and custom photography sessions tailored to your needs
-              </p>
-            </div>
-          </div>
+        {/* View All Button */}
+        <div className="flex justify-end animate-fade-in" style={{ animationDelay: "0.5s" }}>
+          <Link
+            to="/styles"
+            className="group inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-glow transition-colors duration-300"
+          >
+            <span>View All</span>
+            <svg 
+              className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>

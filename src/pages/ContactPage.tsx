@@ -1,6 +1,8 @@
-import { Mail, Phone, MapPin, Instagram, Facebook, Twitter, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Facebook, Send } from "lucide-react";
+import { Music } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -21,15 +23,15 @@ const ContactPage = () => {
   };
 
   const contactInfo = [
-    { icon: Mail, label: "Email", value: "hello@2amstudio.com", link: "mailto:hello@2amstudio.com" },
+    { icon: Mail, label: "Email", value: "phvythao@gmail.com", link: "mailto:phvythao@gmail.com" },
     { icon: Phone, label: "Phone", value: "+1 (555) 123-4567", link: "tel:+15551234567" },
-    { icon: MapPin, label: "Location", value: "Los Angeles, CA", link: "https://maps.google.com" },
+    { icon: MapPin, label: "Location", value: "Manchester, UK & Ho Chi Minh City, VN", link: "https://maps.app.goo.gl/RPjHKbZVnE7c37eF9" },
   ];
 
   const socialMedia = [
-    { icon: Instagram, label: "Instagram", url: "https://instagram.com/2amstudio" },
-    { icon: Facebook, label: "Facebook", url: "https://facebook.com/2amstudio" },
-    { icon: Twitter, label: "Twitter", url: "https://twitter.com/2amstudio" },
+    { icon: Instagram, label: "Instagram", url: "https://instagram.com/2amstudio.vn" },
+    { icon: Facebook, label: "Facebook", url: "https://www.facebook.com/2am.studio/" },
+    { icon: Music, label: "TikTok", url: "https://tiktok.com/@2amstudio.vn" },
   ];
 
   return (
@@ -51,7 +53,7 @@ const ContactPage = () => {
               Let's Create <span className="bg-gradient-primary bg-clip-text text-transparent">Together</span>
             </h1>
             <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
-              Ready to capture your special moments? We'd love to hear from you and discuss your project
+              Ready to capture your special moments? <br/>We'd love to hear from you and discuss your project
             </p>
           </div>
 
@@ -185,8 +187,8 @@ const ContactPage = () => {
                 <div className="space-y-3">
                   {[
                     { day: "Monday - Friday", hours: "9:00 AM - 6:00 PM" },
-                    { day: "Saturday", hours: "10:00 AM - 4:00 PM" },
-                    { day: "Sunday", hours: "By Appointment" },
+                    { day: "Weekend", hours: "By Appointment" },
+                    //{ day: "Sunday", hours: "By Appointment" },
                   ].map((schedule) => (
                     <div key={schedule.day} className="flex justify-between items-center">
                       <span className="text-muted-foreground">{schedule.day}</span>
@@ -202,7 +204,7 @@ const ContactPage = () => {
                 <div className="grid grid-cols-2 gap-4">
                   {[
                     { value: "24hr", label: "Response Time" },
-                    { value: "500+", label: "Happy Clients" },
+                    { value: "20+", label: "Happy Clients" },
                   ].map((stat) => (
                     <div key={stat.label} className="text-center glass rounded-xl p-4">
                       <p className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-1">
@@ -218,12 +220,7 @@ const ContactPage = () => {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-10 mt-20 pt-8 border-t border-white/10">
-        <div className="container mx-auto px-4 text-center text-muted-foreground text-sm">
-          <p>© 2025 2amstudio. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

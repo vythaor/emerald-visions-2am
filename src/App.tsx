@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import StylesPage from "./pages/StylesPage";
 import ServicesPage from "./pages/ServicesPage";
@@ -23,6 +24,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/styles" element={<StylesPage />} />
@@ -30,7 +32,7 @@ const App = () => (
           <Route path="/styles/wedding" element={<WeddingStylePage />} />
           <Route path="/styles/sport" element={<SportStylePage />} />
           <Route path="/styles/outdoor" element={<OutdoorStylePage />} />
-          <Route path="/styles/events" element={<EventStylePage />} />
+          <Route path="/styles/event" element={<EventStylePage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/equipment" element={<EquipmentPage />} />
           <Route path="/contact" element={<ContactPage />} />

@@ -2,7 +2,8 @@ import { Camera, Lightbulb, Monitor, Settings, Cpu, ArrowRight } from "lucide-re
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
-const CLOUDINARY_IMG = "https://res.cloudinary.com/ddwq9besf/image/upload/v1759756630/DSC01839_u15qjp.jpg";
+import Footer from "@/components/Footer";
+import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
 
 const EquipmentPage = () => {
   const gear = [
@@ -67,7 +68,7 @@ const EquipmentPage = () => {
       step: "5", 
       title: "Delivery", 
       desc: "High-resolution files delivered via beautiful online gallery",
-      duration: "Same day",
+      duration: "On Shedule",
     },
   ];
 
@@ -138,7 +139,7 @@ const EquipmentPage = () => {
               <div className="relative animate-fade-in" style={{ animationDelay: "0.3s" }}>
                 <div className="relative rounded-3xl overflow-hidden glass-card p-4 hover-lift transition-all hover:shadow-glow-strong">
                   <img
-                    src={CLOUDINARY_IMG}
+                    src={cloudinaryUrl("camera_hxmygl.jpg", DEFAULT_TRANSFORM)}
                     alt="Professional camera equipment"
                     className="w-full h-full object-cover rounded-2xl"
                   />
@@ -202,10 +203,10 @@ const EquipmentPage = () => {
           {/* Stats Section */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             {[
-              { value: "5000+", label: "Photos Delivered" },
-              { value: "500+", label: "Happy Clients" },
-              { value: "50+", label: "Events Covered" },
-              { value: "100%", label: "Satisfaction Rate" },
+              { value: "1000+", label: "Photos Delivered" },
+              { value: "10+", label: "Happy Clients" },
+              { value: "2+", label: "Events Covered" },
+              { value: "50%", label: "Customers Returning Rate" },
             ].map((stat, index) => (
               <div
                 key={stat.label}
@@ -238,6 +239,8 @@ const EquipmentPage = () => {
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 };
