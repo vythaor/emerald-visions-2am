@@ -167,7 +167,7 @@ const ServicesPage = () => {
             {services.map((service, index) => (
               <Card
                 key={service.title}
-                className={`relative glass-card p-8 border-border hover:border-primary/50 transition-all duration-700 hover-lift hover:shadow-glow-strong animate-fade-in overflow-hidden group ${
+                className={`relative glass-card p-8 border-border hover:border-primary/50 transition-all duration-700 hover-lift hover:shadow-glow-subtle animate-fade-in overflow-hidden group ${
                   service.popular ? "border-primary/30" : ""
                 }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
@@ -204,7 +204,7 @@ const ServicesPage = () => {
 
                   <Link
                     to="/contact"
-                    className="w-full py-3 glass-strong rounded-full font-semibold hover:bg-gradient-primary hover:shadow-glow transition-all duration-300 group/btn block text-center"
+                    className="w-full py-3 glass-strong rounded-full font-semibold hover:bg-gradient-primary hover:shadow-glow-subtle transition-all duration-300 group/btn block text-center"
                   >
                     <span className="flex items-center justify-center gap-2">
                       Choose Package
@@ -415,10 +415,11 @@ const ServicesPage = () => {
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-primary rounded-full font-semibold hover:shadow-glow-strong transition-all group"
+              className="inline-flex items-center gap-2 px-8 py-4 btn-primary rounded-full font-semibold group relative"
             >
-              <span>Contact Us</span>
-              <ArrowRight className="transition-transform duration-300 group-hover:translate-x-2" size={20} />
+              <span className="relative z-10">Contact Us</span>
+              <ArrowRight className="transition-transform duration-300 group-hover:translate-x-2 relative z-10" size={20} />
+              <div className="shimmer"></div>
             </Link>
           </div>
         </div>

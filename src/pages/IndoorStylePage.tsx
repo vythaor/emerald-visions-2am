@@ -5,6 +5,7 @@ import ImageDialog from "@/components/ImageDialog";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
+import StyleNavigation from "@/components/StyleNavigation";
 import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources, cloudinaryUrl } from "@/lib/cloudinary";
 
 const IndoorStylePage = () => {
@@ -108,7 +109,7 @@ const IndoorStylePage = () => {
             {features.map((feature, index) => (
               <div
                 key={feature.title}
-                className="glass-card rounded-2xl p-6 text-center hover-lift hover:shadow-glow transition-all duration-500 animate-fade-in"
+                className="glass-card rounded-2xl p-6 text-center hover-lift hover:shadow-glow-subtle transition-all duration-500 animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-primary flex items-center justify-center">
@@ -130,7 +131,7 @@ const IndoorStylePage = () => {
               {galleryImages.map((image, index) => (
                 <div
                   key={image.id}
-                  className="group relative glass-card rounded-2xl overflow-hidden hover-lift hover:shadow-glow-strong transition-all duration-500 animate-fade-in cursor-zoom-in"
+                  className="group relative glass-photo rounded-2xl overflow-hidden hover-lift hover:shadow-glow-photo hover:glass-photo-hover transition-all duration-500 animate-fade-in cursor-zoom-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                   onClick={() => openPreviewAt(index)}
                 >
@@ -141,12 +142,7 @@ const IndoorStylePage = () => {
                       className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-overlay opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-                    <div className="absolute inset-0 bg-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    {/* Category Badge */}
-                    <div className="absolute top-4 left-4 px-3 py-1 glass-strong rounded-full border border-primary/30">
-                      <span className="text-xs font-semibold text-primary">{image.category}</span>
-                    </div>
+                    <div className="absolute inset-0 bg-gradient-hover-light opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </div>
               ))}
@@ -161,8 +157,13 @@ const IndoorStylePage = () => {
             onIndexChange={setSelectedIndex}
           />
 
+          {/* Style Navigation */}
+          <div>
+            <StyleNavigation />
+          </div>
+
           {/* CTA Section */}
-          <div className="text-center glass-card rounded-3xl p-12 border border-primary/20 animate-fade-in">
+          <div className="mt-16 text-center glass-card rounded-3xl p-12 border border-primary/20 animate-fade-in">
             <h2 className="font-display text-3xl font-bold mb-4">
               Ready for Your Indoor Session?
             </h2>
@@ -173,10 +174,11 @@ const IndoorStylePage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-primary rounded-full font-semibold hover:shadow-glow-strong transition-all group"
+                className="inline-flex items-center gap-2 px-8 py-4 btn-primary rounded-full font-semibold group relative"
               >
-                <span>Book Session</span>
-                <Camera className="transition-transform duration-300 group-hover:scale-110" size={20} />
+                <span className="relative z-10">Book Session</span>
+                <Camera className="transition-transform duration-300 group-hover:scale-110 relative z-10" size={20} />
+                <div className="shimmer"></div>
               </Link>
               <Link
                 to="/services"
@@ -186,6 +188,7 @@ const IndoorStylePage = () => {
               </Link>
             </div>
           </div>
+
         </div>
       </main>
 

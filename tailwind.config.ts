@@ -55,11 +55,15 @@ export default {
         'gradient-secondary': 'var(--gradient-secondary)',
         'gradient-overlay': 'var(--gradient-overlay)',
         'gradient-hover': 'var(--gradient-hover)',
+        'gradient-hover-light': 'var(--gradient-hover-light)',
+        'gradient-hover-subtle': 'var(--gradient-hover-subtle)',
         'gradient-border': 'var(--gradient-border)',
       },
       boxShadow: {
         'glow': 'var(--shadow-glow)',
         'glow-strong': 'var(--shadow-glow-strong)',
+        'glow-subtle': 'var(--shadow-glow-subtle)',
+        'glow-photo': 'var(--shadow-glow-photo)',
         'soft': 'var(--shadow-soft)',
       },
       fontFamily: {

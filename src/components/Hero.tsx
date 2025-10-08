@@ -25,9 +25,9 @@ const Hero = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
             <Link to="/styles">
-              <Button size="lg" className="bg-gradient-primary hover:shadow-glow-strong transition-all text-lg px-8 py-6 group relative overflow-hidden">
+              <Button size="lg" className="btn-primary text-lg px-8 py-6 group">
                 <span className="relative z-10">View Portfolio</span>
-                <div className="absolute inset-0 bg-gradient-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="shimmer"></div>
               </Button>
             </Link>
             <Link to="/contact">

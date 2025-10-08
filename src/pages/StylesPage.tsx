@@ -70,9 +70,10 @@ const StylesPage = () => {
           {/* Styles Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {styles.map((style, index) => (
-              <div
+              <Link
                 key={style.title}
-                className="group relative glass-card rounded-3xl overflow-hidden hover-lift hover:shadow-glow-strong transition-all duration-700 animate-fade-in"
+                to={style.link}
+                className="group relative glass-photo rounded-3xl overflow-hidden hover-lift hover:shadow-glow-photo hover:glass-photo-hover transition-all duration-700 animate-fade-in cursor-pointer"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Image Section */}
@@ -83,12 +84,7 @@ const StylesPage = () => {
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
                   />
                   <div className="absolute inset-0 bg-gradient-overlay opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
-                  <div className="absolute inset-0 bg-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                  
-                  {/* Floating badge */}
-                  <div className="absolute top-6 right-6 px-4 py-2 glass-strong rounded-full border border-primary/30 backdrop-blur-xl">
-                    <span className="text-sm font-semibold text-primary">Featured</span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-hover-light opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 </div>
 
                 {/* Content Section */}
@@ -114,18 +110,15 @@ const StylesPage = () => {
                   </div>
 
                   {/* CTA */}
-                  <Link 
-                    to={style.link}
-                    className="flex items-center gap-2 text-primary font-semibold group/btn hover:text-primary-glow transition-colors"
-                  >
+                  <div className="flex items-center gap-2 text-primary font-semibold group/btn hover:text-primary-glow transition-colors">
                     <span>View Gallery</span>
                     <ArrowRight className="transition-transform duration-300 group-hover/btn:translate-x-2" size={18} />
-                  </Link>
+                  </div>
                 </div>
 
                 {/* Decorative corner */}
                 <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-primary opacity-10 blur-3xl group-hover:opacity-20 transition-opacity duration-700" />
-              </div>
+              </Link>
             ))}
           </div>
 

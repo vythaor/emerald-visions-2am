@@ -10,8 +10,8 @@ const EquipmentPage = () => {
     {
       icon: Camera,
       title: "Professional Cameras",
-      description: "Sony A7 III (UK), Fuji Xpro2 (VN) - Full-frame mirrorless systems delivering 45+ megapixel resolution",
-      specs: ["45MP Resolution", "8K Video", "ISO 100-51,200"],
+      description: "Sony A7 III (UK Studio), Fuji X-Pro2 (Vietnam Studio) - Full-frame mirrorless systems delivering exceptional image quality",
+      specs: ["24MP Sony", "24MP Fuji", "4K Video", "ISO 100-51,200"],
     },
     // {
     //   icon: Lightbulb,
@@ -28,8 +28,8 @@ const EquipmentPage = () => {
     {
       icon: Settings,
       title: "Premium Lenses",
-      description: "Professional glass collection including Tamron 28-75mm f/2.8 G2 and Fuji  XF 35 f/1.4 R",
-      specs: ["Weather Sealed", "Fast Aperture", "Image Stabilization"],
+      description: "Professional glass collection: Tamron 28-75mm f/2.8 G2 (UK Studio), Fuji XF 35mm f/1.4 R (Vietnam Studio)",
+      specs: ["Tamron 28-75mm f/2.8 G2", "Fuji XF 35mm f/1.4 R", "Weather Sealed", "Fast Aperture"],
     },
     {
       icon: Cpu,
@@ -91,7 +91,7 @@ const EquipmentPage = () => {
               Professional <span className="bg-gradient-primary bg-clip-text text-transparent">Gear</span>
             </h1>
             <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
-              State-of-the-art equipment and refined workflow ensuring exceptional results every time
+              Professional equipment across our UK and Vietnam studios, with refined workflow ensuring exceptional results every time
             </p>
           </div>
 
@@ -103,7 +103,7 @@ const EquipmentPage = () => {
                 {gear.map((item, index) => (
                   <div
                     key={item.title}
-                    className="glass-card p-6 rounded-2xl hover-lift hover:shadow-glow transition-all duration-700 group"
+                    className="glass-card p-6 rounded-2xl hover-lift hover:shadow-glow-subtle transition-all duration-700 group"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="flex gap-4">
@@ -137,7 +137,7 @@ const EquipmentPage = () => {
 
               {/* Equipment Image */}
               <div className="relative animate-fade-in" style={{ animationDelay: "0.3s" }}>
-                <div className="relative rounded-3xl overflow-hidden glass-card p-4 hover-lift transition-all hover:shadow-glow-strong">
+                <div className="relative rounded-3xl overflow-hidden glass-photo p-4 hover-lift transition-all hover:shadow-glow-photo hover:glass-photo-hover">
                   <img
                     src={cloudinaryUrl("camera_hxmygl.jpg", DEFAULT_TRANSFORM)}
                     alt="Professional camera equipment"
@@ -178,7 +178,7 @@ const EquipmentPage = () => {
                     className="relative animate-fade-in group"
                     style={{ animationDelay: `${index * 0.15}s` }}
                   >
-                    <div className="glass-card rounded-2xl p-6 hover-lift hover:shadow-glow transition-all h-full">
+                    <div className="glass-card rounded-2xl p-6 hover-lift hover:shadow-glow-subtle transition-all h-full">
                       {/* Step Number */}
                       <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-primary flex items-center justify-center text-2xl font-bold shadow-glow relative z-10 group-hover:scale-110 transition-transform">
                         {item.step}
@@ -210,7 +210,7 @@ const EquipmentPage = () => {
             ].map((stat, index) => (
               <div
                 key={stat.label}
-                className="glass-card rounded-2xl p-8 text-center hover-lift hover:shadow-glow transition-all animate-fade-in group"
+                className="glass-card rounded-2xl p-8 text-center hover-lift hover:shadow-glow-subtle transition-all animate-fade-in group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <p className="text-4xl md:text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform">
@@ -231,10 +231,11 @@ const EquipmentPage = () => {
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-primary rounded-full font-semibold hover:shadow-glow-strong transition-all group"
+              className="inline-flex items-center gap-2 px-8 py-4 btn-primary rounded-full font-semibold group relative"
             >
-              <span>Start Your Project</span>
-              <ArrowRight className="transition-transform duration-300 group-hover:translate-x-2" size={20} />
+              <span className="relative z-10">Start Your Project</span>
+              <ArrowRight className="transition-transform duration-300 group-hover:translate-x-2 relative z-10" size={20} />
+              <div className="shimmer"></div>
             </Link>
           </div>
         </div>

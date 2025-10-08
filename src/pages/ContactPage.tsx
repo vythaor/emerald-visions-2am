@@ -125,11 +125,12 @@ const ContactPage = () => {
                   />
                 </div>
                 
-                <Button type="submit" className="w-full bg-gradient-primary hover:shadow-glow-strong transition-all py-6 text-lg group">
-                  <span className="flex items-center justify-center gap-2">
+                <Button type="submit" className="w-full btn-primary py-6 text-lg group">
+                  <span className="flex items-center justify-center gap-2 relative z-10">
                     Send Message
                     <Send className="transition-transform group-hover:translate-x-1" size={20} />
                   </span>
+                  <div className="shimmer"></div>
                 </Button>
               </form>
             </div>

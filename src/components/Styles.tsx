@@ -165,7 +165,7 @@ const StyleCard = ({ title, description, image, className = "", index, route }: 
           
           {/* Animated gradient overlay on hover */}
           <div 
-            className="absolute inset-0 bg-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+            className="absolute inset-0 bg-gradient-hover-light opacity-0 group-hover:opacity-100 transition-opacity duration-700"
             style={{
               background: 'linear-gradient(135deg, hsl(158 80% 65% / 0.2) 0%, hsl(152 76% 48% / 0.4) 100%)',
             }}

@@ -7,7 +7,7 @@ const Equipment = () => {
     {
       icon: Camera,
       title: "Professional Cameras",
-      description: "Sony A7 III (UK), Fuji Xpro2 (VN) - Full-frame mirrorless systems for exceptional image quality",
+      description: "Sony A7 III (UK Studio), Fuji X-Pro2 (Vietnam Studio) - Full-frame mirrorless systems for exceptional image quality",
     },
     // {
     //   icon: Lightbulb,
@@ -22,7 +22,7 @@ const Equipment = () => {
     {
       icon: Settings,
       title: "Premium Lenses",
-      description: "Tamron 28-75mm f/2.8 G2, Fuji  XF 35 f/1.4 R - Professional glass collection",
+      description: "Tamron 28-75mm f/2.8 G2 (UK), Fuji XF 35mm f/1.4 R (Vietnam) - Professional glass collection",
     },
   ];
 
@@ -44,7 +44,7 @@ const Equipment = () => {
               Professional <span className="bg-gradient-primary bg-clip-text text-transparent">Equipment</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              State-of-the-art gear ensuring the highest quality results
+              Professional equipment across our UK and Vietnam studios ensuring the highest quality results
             </p>
           </div>
 
