@@ -17,7 +17,7 @@ const ServicesPage = () => {
   useEffect(() => {
     const fetchEnhanceImages = async () => {
       try {
-        const response = await fetchFolderSources('enhance', 20, 0);
+        const response = await fetchFolderSources('enhance', 20, null);
         setEnhanceImages(response.images);
       } catch (error) {
         console.error('Error fetching enhance images:', error);

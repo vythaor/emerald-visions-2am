@@ -29,7 +29,7 @@ export interface ImageResponse {
   count: number;
 }
 
-export async function fetchFolderSources(folder: string, max: number = 30, offset: number = 0): Promise<ImageResponse> {
+export async function fetchFolderSources(folder: string, max: number = 30, cursor: string | null = null): Promise<ImageResponse> {
   // Auto-detect server base URL based on environment
   const serverBase = import.meta.env.VITE_IMAGE_SERVER_BASE || 
     (import.meta.env.PROD 
@@ -37,7 +37,10 @@ export async function fetchFolderSources(folder: string, max: number = 30, offse
       : 'http://localhost:3001' // In development, use local server
     );
   
-  const url = `${serverBase}/api/images?folder=${encodeURIComponent(folder)}&max=${max}&offset=${offset}`;
+  let url = `${serverBase}/api/images?folder=${encodeURIComponent(folder)}&max=${max}`;
+  if (cursor) {
+    url += `&cursor=${encodeURIComponent(cursor)}`;
+  }
   console.log(`[cloudinary] Fetching images from: ${url}`);
   
   try {

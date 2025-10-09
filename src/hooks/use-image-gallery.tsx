@@ -25,7 +25,7 @@ export function useImageGallery({
     
     setIsLoading(true);
     try {
-      const response = await fetchFolderSources(folder, pageSize, nextCursor || 0);
+      const response = await fetchFolderSources(folder, pageSize, nextCursor);
       setImages(prev => [...prev, ...response.images]);
       setHasMore(response.hasMore);
       setNextCursor(response.nextCursor);
@@ -50,7 +50,7 @@ export function useImageGallery({
     (async () => {
       try {
         setIsLoading(true);
-        const response = await fetchFolderSources(folder, pageSize, 0);
+        const response = await fetchFolderSources(folder, pageSize, null);
         if (!cancelled) {
           if (response.images.length > 0) {
             setImages(response.images);
