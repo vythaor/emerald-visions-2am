@@ -28,4 +28,4 @@ This server is designed to be deployed to Vercel, Railway, or Render.
 
 - `GET /health` - Health check
 - `GET /api/images?folder={folder}&max={max}` - Get images from Cloudinary folder
-- `GET /api/test?folder={folder}` - Test endpoint for debugging
+- `GET /api/test?folder={folder}` - Test endpoint for debugging# Trigger redeploy for EmailJS environment variables
