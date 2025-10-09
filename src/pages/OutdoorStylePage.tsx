@@ -1,4 +1,4 @@
-import { ArrowLeft, Sun, Sparkles, Camera, Mountain, TreePine, Sunrise } from "lucide-react";
+import { ArrowLeft, Sun, Sparkles, Camera, Mountain, TreePine, Sunrise, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
@@ -7,34 +7,13 @@ import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
 import StyleNavigation from "@/components/StyleNavigation";
 import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources, cloudinaryUrl } from "@/lib/cloudinary";
+import { useImageGallery } from "@/hooks/use-image-gallery";
 
 const OutdoorStylePage = () => {
-  const [outdoorSources, setOutdoorSources] = React.useState<string[]>([]);
-
-  React.useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const sources = await fetchFolderSources('outdoor', 30);
-        if (!cancelled && sources.length) {
-          setOutdoorSources(sources);
-          return;
-        }
-      } catch (e) {
-        // Ignore errors and use fallback sources
-      }
-      // fallback to any manual list or fallback image
-      if (!cancelled) {
-        setOutdoorSources([
-          "https://res.cloudinary.com/ddwq9besf/image/upload/v1759759667/IMG_2769_wry0zl.jpg",
-          "https://res.cloudinary.com/ddwq9besf/image/upload/v1759759652/DSCF6089_rwcoif.jpg",
-        ].map((pid) => resolveCloudinarySource(pid, DEFAULT_TRANSFORM)).concat([cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM)]));
-      }
-    })();
-    return () => {
-      cancelled = true;
-    }
-  }, []);
+  const { images: outdoorSources, isLoading, hasMore, initialLoad, setLoadMoreRef } = useImageGallery({
+    folder: 'outdoor',
+    fallbackImage: "DSCF0100_zidqs2.jpg"
+  });
 
   const galleryImages = outdoorSources.map((src, idx) => ({
     id: idx + 1,
@@ -132,6 +111,33 @@ const OutdoorStylePage = () => {
                 </div>
               ))}
             </div>
+
+            {/* Loading indicator */}
+            {(isLoading || initialLoad) && (
+              <div className="flex justify-center items-center py-8">
+                <div className="flex items-center gap-3 glass-card rounded-full px-6 py-3">
+                  <Loader2 className="animate-spin text-primary" size={20} />
+                  <span className="text-sm font-medium">Loading more images...</span>
+                </div>
+              </div>
+            )}
+
+            {/* Infinite scroll trigger */}
+            {hasMore && !initialLoad && (
+              <div ref={setLoadMoreRef} className="h-4" />
+            )}
+
+            {/* End of gallery message */}
+            {!hasMore && !initialLoad && outdoorSources.length > 0 && (
+              <div className="text-center py-8">
+                <div className="glass-card rounded-2xl p-6 max-w-md mx-auto">
+                  <Sparkles className="mx-auto mb-2 text-primary" size={24} />
+                  <p className="text-sm text-muted-foreground">
+                    You've reached the end of the gallery
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           <ImageDialog

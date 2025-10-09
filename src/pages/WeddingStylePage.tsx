@@ -1,4 +1,4 @@
-import { ArrowLeft, Heart, Sparkles, Camera, Calendar, Users, Star } from "lucide-react";
+import { ArrowLeft, Heart, Sparkles, Camera, Calendar, Users, Star, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
@@ -6,31 +6,14 @@ import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
 import StyleNavigation from "@/components/StyleNavigation";
-import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources, cloudinaryUrl } from "@/lib/cloudinary";
+import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources, cloudinaryUrl, ImageResponse } from "@/lib/cloudinary";
+import { useImageGallery } from "@/hooks/use-image-gallery";
 
 const WeddingStylePage = () => {
-  const [weddingSources, setWeddingSources] = React.useState<string[]>([]);
-
-  React.useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const sources = await fetchFolderSources('wedding', 30);
-        if (!cancelled && sources.length) {
-          setWeddingSources(sources);
-          return;
-        }
-      } catch (e) {
-        // Ignore errors and use fallback sources
-      }
-      if (!cancelled) {
-        setWeddingSources([cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM)]);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    }
-  }, []);
+  const { images: weddingSources, isLoading, hasMore, initialLoad, setLoadMoreRef } = useImageGallery({
+    folder: 'wedding',
+    fallbackImage: "DSCF0482_gcxzks.jpg"
+  });
 
   const galleryImages = weddingSources.map((src, idx) => ({
     id: idx + 1,
@@ -128,6 +111,33 @@ const WeddingStylePage = () => {
                 </div>
               ))}
             </div>
+
+            {/* Loading indicator */}
+            {(isLoading || initialLoad) && (
+              <div className="flex justify-center items-center py-8">
+                <div className="flex items-center gap-3 glass-card rounded-full px-6 py-3">
+                  <Loader2 className="animate-spin text-primary" size={20} />
+                  <span className="text-sm font-medium">Loading more images...</span>
+                </div>
+              </div>
+            )}
+
+            {/* Infinite scroll trigger */}
+            {hasMore && !initialLoad && (
+              <div ref={setLoadMoreRef} className="h-4" />
+            )}
+
+            {/* End of gallery message */}
+            {!hasMore && !initialLoad && weddingSources.length > 0 && (
+              <div className="text-center py-8">
+                <div className="glass-card rounded-2xl p-6 max-w-md mx-auto">
+                  <Sparkles className="mx-auto mb-2 text-primary" size={24} />
+                  <p className="text-sm text-muted-foreground">
+                    You've reached the end of the gallery
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           <ImageDialog

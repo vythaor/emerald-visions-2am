@@ -22,7 +22,14 @@ export function resolveCloudinarySource(pathOrUrl: string, transformation: strin
   return cloudinaryUrl(pathOrUrl, transformation);
 }
 
-export async function fetchFolderSources(folder: string, max: number = 30): Promise<string[]> {
+export interface ImageResponse {
+  images: string[];
+  hasMore: boolean;
+  nextCursor: string | null;
+  count: number;
+}
+
+export async function fetchFolderSources(folder: string, max: number = 30, offset: number = 0): Promise<ImageResponse> {
   // Auto-detect server base URL based on environment
   const serverBase = import.meta.env.VITE_IMAGE_SERVER_BASE || 
     (import.meta.env.PROD 
@@ -30,18 +37,28 @@ export async function fetchFolderSources(folder: string, max: number = 30): Prom
       : 'http://localhost:3001' // In development, use local server
     );
   
-  const url = `${serverBase}/api/images?folder=${encodeURIComponent(folder)}&max=${max}`;
+  const url = `${serverBase}/api/images?folder=${encodeURIComponent(folder)}&max=${max}&offset=${offset}`;
   console.log(`[cloudinary] Fetching images from: ${url}`);
   
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Server returned ${res.status}`);
     const data = await res.json();
-    return Array.isArray(data.images) ? data.images.map((img: any) => img.url) : [];
+    
+    return {
+      images: Array.isArray(data.images) ? data.images.map((img: any) => img.url) : [],
+      hasMore: data.hasMore || false,
+      nextCursor: data.nextCursor || null,
+      count: data.count || 0
+    };
   } catch (error) {
-    console.warn(`[cloudinary] Server unavailable, returning empty array for ${folder}:`, error);
-    // Return empty array instead of non-existent fallback images
-    return [];
+    console.warn(`[cloudinary] Server unavailable, returning empty response for ${folder}:`, error);
+    return {
+      images: [],
+      hasMore: false,
+      nextCursor: null,
+      count: 0
+    };
   }
 }
 

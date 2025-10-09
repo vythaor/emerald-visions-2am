@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
 import emailjs from '@emailjs/browser';
-import { EMAILJS_CONFIG } from '@/config/emailjs';
+import { EMAILJS_CONFIG, isEmailJSConfigured } from '@/config/emailjs';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +26,7 @@ const ContactPage = () => {
 
     try {
       // Check if EmailJS is properly configured
-      if (!EMAILJS_CONFIG.SERVICE_ID || !EMAILJS_CONFIG.TEMPLATE_ID || !EMAILJS_CONFIG.PUBLIC_KEY) {
+      if (!isEmailJSConfigured()) {
         throw new Error('EmailJS configuration is incomplete. Please check your environment variables.');
       }
 
@@ -51,7 +51,13 @@ const ContactPage = () => {
       setFormData({ name: "", email: "", phone: "", service: "", message: "" });
     } catch (error) {
       console.error('Error sending email:', error);
-      toast.error("Failed to send message. Please try again or contact us directly at phvythao@gmail.com");
+      
+      // Provide helpful error message based on the error type
+      if (error instanceof Error && error.message.includes('configuration is incomplete')) {
+        toast.error("Email service is not configured. Please contact us directly at phvythao@gmail.com");
+      } else {
+        toast.error("Failed to send message. Please try again or contact us directly at phvythao@gmail.com");
+      }
     } finally {
       setIsSubmitting(false);
     }

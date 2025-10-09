@@ -1,78 +1,122 @@
-import { Check, Star, Zap, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Check, Star, Zap, ArrowRight, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
-import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
+import { cloudinaryUrl, DEFAULT_TRANSFORM, fetchFolderSources } from "@/lib/cloudinary";
 
 const ServicesPage = () => {
   const [activeComparison, setActiveComparison] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(50);
+  const [enhanceImages, setEnhanceImages] = useState<string[]>([]);
+  const [isLoadingEnhance, setIsLoadingEnhance] = useState(true);
 
-  const beforeAfterPhotos = [
-    {
-      id: 1,
-      before: cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSC03710_oah2bk.jpg", "f_auto,q_auto,e_art:audrey"),
-      title: "Portrait Enhancement"
-    },
+  // Fetch images from enhance folder
+  useEffect(() => {
+    const fetchEnhanceImages = async () => {
+      try {
+        const response = await fetchFolderSources('enhance', 20, 0);
+        setEnhanceImages(response.images);
+      } catch (error) {
+        console.error('Error fetching enhance images:', error);
+        setEnhanceImages([]);
+      } finally {
+        setIsLoadingEnhance(false);
+      }
+    };
+
+    fetchEnhanceImages();
+  }, []);
+
+  // Generate before/after pairs from enhance images
+  const generateBeforeAfterPairs = () => {
+    if (enhanceImages.length === 0) return [];
+
+    // Create pairs from enhance images (assuming even number of images)
+    const pairs = [];
+    for (let i = 0; i < enhanceImages.length && i < 20; i += 2) {
+      if (i + 1 < enhanceImages.length) {
+        pairs.push({
+          id: pairs.length + 1,
+          before: enhanceImages[i],
+          after: enhanceImages[i + 1],
+          title: `Enhancement ${pairs.length + 1}`
+        });
+      }
+    }
+    return pairs;
+  };
+
+  // Manual fallback images (can be customized by replacing IDs)
+  const manualBeforeAfterPhotos = [
+      {
+        id: 1,
+        before: cloudinaryUrl("DSC01522_wymgvg.jpg", DEFAULT_TRANSFORM),
+        after: cloudinaryUrl("DSC01522_nshldu.jpg", DEFAULT_TRANSFORM),
+        title: "Portrait Enhancement"
+      },
     {
       id: 2,
       before: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSCF0482_gcxzks.jpg", "f_auto,q_auto,e_art:audrey"),
+      after: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
       title: "Wedding Photo Retouching"
     },
     {
       id: 3,
       before: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSC03440_hemqqo.jpg", "f_auto,q_auto,e_art:audrey"),
+      after: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
       title: "Action Shot Enhancement"
     },
     {
       id: 4,
       before: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSCF0100_zidqs2.jpg", "f_auto,q_auto,e_art:audrey"),
+      after: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
       title: "Outdoor Portrait"
     },
     {
       id: 5,
       before: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSC08986_rjjyff.jpg", "f_auto,q_auto,e_art:audrey"),
+      after: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
       title: "Event Photography"
     },
     {
       id: 6,
       before: cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSC03710_oah2bk.jpg", "f_auto,q_auto,e_art:audrey"),
+      after: cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM),
       title: "Studio Portrait"
     },
     {
       id: 7,
       before: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSCF0482_gcxzks.jpg", "f_auto,q_auto,e_art:audrey"),
+      after: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
       title: "Couple Session"
     },
     {
       id: 8,
       before: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSC03440_hemqqo.jpg", "f_auto,q_auto,e_art:audrey"),
+      after: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
       title: "Sports Photography"
     },
     {
       id: 9,
       before: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSCF0100_zidqs2.jpg", "f_auto,q_auto,e_art:audrey"),
-      title: "Nature Portrait"
+      after: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
+      title: "Nature Photography"
     },
     {
       id: 10,
       before: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSC08986_rjjyff.jpg", "f_auto,q_auto,e_art:audrey"),
+      after: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
       title: "Corporate Event"
     }
   ];
+
+  // Use fetched images if available, otherwise fall back to manual ones
+  const beforeAfterPhotos = enhanceImages.length > 0 
+    ? generateBeforeAfterPairs() 
+    : manualBeforeAfterPhotos;
 
   const services = [
     {
@@ -217,8 +261,8 @@ const ServicesPage = () => {
           </div>
 
 
-                    {/* Before/After Comparison Section */}
-                    <div className="glass-card rounded-3xl p-8 md:p-12 mb-16 animate-fade-in border border-primary/20">
+          {/* Before/After Comparison Section */}
+          <div className="glass-card rounded-3xl p-8 md:p-12 mb-16 animate-fade-in border border-primary/20">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
                 See the <span className="bg-gradient-primary bg-clip-text text-transparent">Difference</span>
@@ -232,111 +276,126 @@ const ServicesPage = () => {
             <div className="relative max-w-4xl mx-auto mb-8">
               <div className="relative overflow-hidden rounded-2xl shadow-2xl">
                 <div className="relative aspect-[4/3] bg-muted">
-                  {/* Before Image */}
-                  <img
-                    src={beforeAfterPhotos[activeComparison].before}
-                    alt="Before"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  
-                  {/* After Image with Slider */}
-                  <div 
-                    className="absolute inset-0 overflow-hidden"
-                    style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
-                  >
-                    <img
-                      src={beforeAfterPhotos[activeComparison].after}
-                      alt="After"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  {/* Slider Line */}
-                  <div 
-                    className="absolute top-0 bottom-0 w-1 bg-white shadow-lg z-10"
-                    style={{ left: `${sliderPosition}%` }}
-                  >
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  {isLoadingEnhance ? (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="flex items-center gap-3 glass-card rounded-full px-6 py-3">
+                        <Loader2 className="animate-spin text-primary" size={20} />
+                        <span className="text-sm font-medium">Loading before/after photos...</span>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div>
+                      {/* Before Image */}
+                      <img
+                        src={beforeAfterPhotos[activeComparison].before}
+                        alt="Before"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                  
+                      {/* After Image with Slider */}
+                      <div 
+                        className="absolute inset-0 overflow-hidden"
+                        style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+                      >
+                        <img
+                          src={beforeAfterPhotos[activeComparison].after}
+                          alt="After"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
 
-                  {/* Labels */}
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-black/50 text-white rounded-full text-sm font-semibold">
-                    Before
-                  </div>
-                  <div className="absolute top-4 right-4 px-3 py-1 bg-black/50 text-white rounded-full text-sm font-semibold">
-                    After
-                  </div>
+                      {/* Slider Line */}
+                      <div 
+                        className="absolute top-0 bottom-0 w-1 bg-white shadow-lg z-10"
+                        style={{ left: `${sliderPosition}%` }}
+                      >
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+                          <div className="w-2 h-2 bg-primary rounded-full"></div>
+                        </div>
+                      </div>
+
+                      {/* Labels */}
+                      <div className="absolute top-4 left-4 px-3 py-1 bg-black/50 text-white rounded-full text-sm font-semibold">
+                        Before
+                      </div>
+                      <div className="absolute top-4 right-4 px-3 py-1 bg-black/50 text-white rounded-full text-sm font-semibold">
+                        After
+                      </div>
+
+                      {/* Slider Input */}
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={sliderPosition}
+                        onChange={(e) => setSliderPosition(Number(e.target.value))}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20"
+                      />
+                    </div>
+                  )}
                 </div>
 
-                {/* Slider Input */}
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={sliderPosition}
-                  onChange={(e) => setSliderPosition(Number(e.target.value))}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20"
-                />
+                {/* Photo Title */}
+                <h3 className="text-center mt-4 text-xl font-semibold">
+                  {beforeAfterPhotos[activeComparison].title}
+                </h3>
               </div>
 
-              {/* Photo Title */}
-              <h3 className="text-center mt-4 text-xl font-semibold">
-                {beforeAfterPhotos[activeComparison].title}
-              </h3>
-            </div>
+              {/* Thumbnail Navigation */}
+              {!isLoadingEnhance && (
+                <div className="flex justify-center gap-4 overflow-x-auto pb-4">
+                  {beforeAfterPhotos.map((photo, index) => (
+                  <button
+                    key={photo.id}
+                    onClick={() => {
+                      setActiveComparison(index);
+                      setSliderPosition(50);
+                    }}
+                    className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden transition-all duration-300 ${
+                      activeComparison === index 
+                        ? 'ring-2 ring-primary shadow-lg scale-105' 
+                        : 'opacity-70 hover:opacity-100 hover:scale-105'
+                    }`}
+                  >
+                    <img
+                      src={photo.before}
+                      alt={photo.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-primary/20 opacity-0 hover:opacity-100 transition-opacity" />
+                  </button>
+                ))}
+                </div>
+              )}
 
-            {/* Thumbnail Navigation */}
-            <div className="flex justify-center gap-4 overflow-x-auto pb-4">
-              {beforeAfterPhotos.map((photo, index) => (
+              {/* Navigation Arrows */}
+              {!isLoadingEnhance && (
+                <div className="flex justify-center gap-4 mt-6">
                 <button
-                  key={photo.id}
                   onClick={() => {
-                    setActiveComparison(index);
+                    setActiveComparison(activeComparison > 0 ? activeComparison - 1 : beforeAfterPhotos.length - 1);
                     setSliderPosition(50);
                   }}
-                  className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden transition-all duration-300 ${
-                    activeComparison === index 
-                      ? 'ring-2 ring-primary shadow-lg scale-105' 
-                      : 'opacity-70 hover:opacity-100 hover:scale-105'
-                  }`}
+                  className="p-3 glass-strong rounded-full hover:bg-gradient-primary transition-all group"
                 >
-                  <img
-                    src={photo.before}
-                    alt={photo.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-primary/20 opacity-0 hover:opacity-100 transition-opacity" />
+                  <ChevronLeft className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </button>
-              ))}
-            </div>
-
-            {/* Navigation Arrows */}
-            <div className="flex justify-center gap-4 mt-6">
-              <button
-                onClick={() => {
-                  setActiveComparison(activeComparison > 0 ? activeComparison - 1 : beforeAfterPhotos.length - 1);
-                  setSliderPosition(50);
-                }}
-                className="p-3 glass-strong rounded-full hover:bg-gradient-primary transition-all group"
-              >
-                <ChevronLeft className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              </button>
-              
-              <span className="flex items-center px-4 py-2 glass-strong rounded-full text-sm font-semibold">
-                {activeComparison + 1} of {beforeAfterPhotos.length}
-              </span>
-              
-              <button
-                onClick={() => {
-                  setActiveComparison(activeComparison < beforeAfterPhotos.length - 1 ? activeComparison + 1 : 0);
-                  setSliderPosition(50);
-                }}
-                className="p-3 glass-strong rounded-full hover:bg-gradient-primary transition-all group"
-              >
-                <ChevronRight className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              </button>
+                
+                <span className="flex items-center px-4 py-2 glass-strong rounded-full text-sm font-semibold">
+                  {activeComparison + 1} of {beforeAfterPhotos.length}
+                </span>
+                
+                <button
+                  onClick={() => {
+                    setActiveComparison(activeComparison < beforeAfterPhotos.length - 1 ? activeComparison + 1 : 0);
+                    setSliderPosition(50);
+                  }}
+                  className="p-3 glass-strong rounded-full hover:bg-gradient-primary transition-all group"
+                >
+                  <ChevronRight className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                </button>
+                </div>
+              )}
             </div>
           </div>
           {/* Add-ons Section */}

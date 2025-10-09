@@ -1,4 +1,4 @@
-import { ArrowLeft, Camera, Sparkles, Star, Users, Palette } from "lucide-react";
+import { ArrowLeft, Camera, Sparkles, Star, Users, Palette, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import * as React from "react";
 import ImageDialog from "@/components/ImageDialog";
@@ -7,31 +7,13 @@ import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
 import StyleNavigation from "@/components/StyleNavigation";
 import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources, cloudinaryUrl } from "@/lib/cloudinary";
+import { useImageGallery } from "@/hooks/use-image-gallery";
 
 const IndoorStylePage = () => {
-  const [indoorSources, setIndoorSources] = React.useState<string[]>([]);
-
-  React.useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const sources = await fetchFolderSources('indoor', 30);
-        if (!cancelled && sources.length) {
-          setIndoorSources(sources);
-          return;
-        }
-      } catch (e) {
-        // Ignore errors and use fallback sources
-      }
-      if (!cancelled) {
-        // Use the cover image as fallback
-        setIndoorSources([cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM)]);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    }
-  }, []);
+  const { images: indoorSources, isLoading, hasMore, initialLoad, setLoadMoreRef } = useImageGallery({
+    folder: 'indoor',
+    fallbackImage: "DSC03710_oah2bk.jpg"
+  });
 
   const galleryImages = indoorSources.map((src, idx) => ({
     id: idx + 1,
@@ -129,6 +111,33 @@ const IndoorStylePage = () => {
                 </div>
               ))}
             </div>
+
+            {/* Loading indicator */}
+            {(isLoading || initialLoad) && (
+              <div className="flex justify-center items-center py-8">
+                <div className="flex items-center gap-3 glass-card rounded-full px-6 py-3">
+                  <Loader2 className="animate-spin text-primary" size={20} />
+                  <span className="text-sm font-medium">Loading more images...</span>
+                </div>
+              </div>
+            )}
+
+            {/* Infinite scroll trigger */}
+            {hasMore && !initialLoad && (
+              <div ref={setLoadMoreRef} className="h-4" />
+            )}
+
+            {/* End of gallery message */}
+            {!hasMore && !initialLoad && indoorSources.length > 0 && (
+              <div className="text-center py-8">
+                <div className="glass-card rounded-2xl p-6 max-w-md mx-auto">
+                  <Sparkles className="mx-auto mb-2 text-primary" size={24} />
+                  <p className="text-sm text-muted-foreground">
+                    You've reached the end of the gallery
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           <ImageDialog
