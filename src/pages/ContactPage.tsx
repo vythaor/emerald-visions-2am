@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
+import emailjs from '@emailjs/browser';
+import { EMAILJS_CONFIG } from '@/config/emailjs';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -16,10 +18,43 @@ const ContactPage = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent! We'll get back to you soon.");
-    setFormData({ name: "", email: "", phone: "", service: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      // Check if EmailJS is properly configured
+      if (!EMAILJS_CONFIG.SERVICE_ID || !EMAILJS_CONFIG.TEMPLATE_ID || !EMAILJS_CONFIG.PUBLIC_KEY) {
+        throw new Error('EmailJS configuration is incomplete. Please check your environment variables.');
+      }
+
+      // EmailJS configuration
+      const templateParams = {
+        ...EMAILJS_CONFIG.TEMPLATE_PARAMS,
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        message: formData.message,
+      };
+
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID, 
+        EMAILJS_CONFIG.TEMPLATE_ID, 
+        templateParams, 
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+      
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      setFormData({ name: "", email: "", phone: "", service: "", message: "" });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast.error("Failed to send message. Please try again or contact us directly at phvythao@gmail.com");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -125,10 +160,10 @@ const ContactPage = () => {
                   />
                 </div>
                 
-                <Button type="submit" className="w-full btn-primary py-6 text-lg group">
+                <Button type="submit" className="w-full btn-primary py-6 text-lg group" disabled={isSubmitting}>
                   <span className="flex items-center justify-center gap-2 relative z-10">
-                    Send Message
-                    <Send className="transition-transform group-hover:translate-x-1" size={20} />
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                    <Send className={`transition-transform ${isSubmitting ? "" : "group-hover:translate-x-1"}`} size={20} />
                   </span>
                   <div className="shimmer"></div>
                 </Button>

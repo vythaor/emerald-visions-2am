@@ -60,7 +60,7 @@ const Navigation = () => {
                 key={item.label}
                 to={item.href}
                 className={`relative text-foreground/80 hover:text-primary transition-all font-medium group ${
-                  isActive(item.href) ? "text-primary" : ""
+                  isActive(item.href) ? "text-primary" : "text-hover-simple"
                 }`}
               >
                 {item.label}
@@ -95,7 +95,7 @@ const Navigation = () => {
                 className={`block py-3 px-4 transition-all rounded-lg ${
                   isActive(item.href)
                     ? "text-primary bg-primary/10"
-                    : "text-foreground/80 hover:text-primary hover:bg-white/5"
+                    : "text-foreground/80 hover:text-primary hover:bg-white/5 text-hover-simple"
                 }`}
               >
                 {item.label}

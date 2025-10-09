@@ -61,7 +61,7 @@ const StyleNavigation = () => {
                 <style.icon className="text-primary-foreground" size={20} />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-display text-lg font-bold group-hover:text-primary transition-colors duration-300">
+                <h3 className="font-display text-lg font-bold group-hover:text-primary transition-colors duration-300 text-hover-simple">
                   {style.title}
                 </h3>
                 <p className="text-muted-foreground text-sm">

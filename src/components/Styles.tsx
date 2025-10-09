@@ -198,8 +198,8 @@ const StyleCard = ({ title, description, image, className = "", index, route }: 
             </p>
             
             {/* View more indicator */}
-            <div className="mt-4 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-all duration-700 transform translate-y-2 group-hover:translate-y-0">
-              <span className="text-sm font-semibold uppercase tracking-wider">View Gallery</span>
+            <div className="mt-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-all duration-700 transform translate-y-2 group-hover:translate-y-0">
+              <span className="text-sm font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-black/20 backdrop-blur-sm border border-white/20">View Gallery</span>
               <svg 
                 className="w-4 h-4 transition-transform duration-700 group-hover:translate-x-1" 
                 fill="none" 

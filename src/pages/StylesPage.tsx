@@ -110,8 +110,8 @@ const StylesPage = () => {
                   </div>
 
                   {/* CTA */}
-                  <div className="flex items-center gap-2 text-primary font-semibold group/btn hover:text-primary-glow transition-colors">
-                    <span>View Gallery</span>
+                  <div className="flex items-center gap-2 text-white font-semibold group/btn hover:text-primary-glow transition-colors">
+                    <span className="px-3 py-1 rounded-full bg-black/20 backdrop-blur-sm border border-white/20">View Gallery</span>
                     <ArrowRight className="transition-transform duration-300 group-hover/btn:translate-x-2" size={18} />
                   </div>
                 </div>

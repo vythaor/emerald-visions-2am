@@ -103,23 +103,6 @@ const EventStylePage = () => {
             </p>
           </div>
 
-          {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {features.map((feature, index) => (
-              <div
-                key={feature.title}
-                className="glass-card rounded-2xl p-6 text-center hover-lift hover:shadow-glow-subtle transition-all duration-500 animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-primary flex items-center justify-center">
-                  <feature.icon className="text-primary-foreground" size={24} />
-                </div>
-                <h3 className="font-display text-xl font-bold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground text-sm">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-
           {/* Gallery Section */}
           <div className="mb-16">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-12">
@@ -140,7 +123,6 @@ const EventStylePage = () => {
                       alt={image.alt}
                       className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-overlay opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
                     <div className="absolute inset-0 bg-gradient-hover-light opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </div>
@@ -156,10 +138,26 @@ const EventStylePage = () => {
             onIndexChange={setSelectedIndex}
           />
 
-
           {/* Style Navigation */}
           <div>
             <StyleNavigation />
+          </div>
+
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 mt-16">
+            {features.map((feature, index) => (
+              <div
+                key={feature.title}
+                className="glass-card rounded-2xl p-6 text-center hover-lift hover:shadow-glow-subtle transition-all duration-500 animate-fade-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-primary flex items-center justify-center">
+                  <feature.icon className="text-primary-foreground" size={24} />
+                </div>
+                <h3 className="font-display text-xl font-bold mb-2">{feature.title}</h3>
+                <p className="text-muted-foreground text-sm">{feature.description}</p>
+              </div>
+            ))}
           </div>
 
              {/* CTA Section */}
