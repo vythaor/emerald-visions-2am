@@ -3,10 +3,11 @@
 import { ENV_CONFIG } from './env';
 
 export const EMAILJS_CONFIG = {
-  // Use environment variables first, then fallback to direct config
+  // Use environment variables first, then fallback to direct config for non-sensitive data
   SERVICE_ID: import.meta.env.VITE_EMAILJS_SERVICE_ID || ENV_CONFIG.EMAILJS_SERVICE_ID,
   TEMPLATE_ID: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || ENV_CONFIG.EMAILJS_TEMPLATE_ID,
-  PUBLIC_KEY: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || ENV_CONFIG.EMAILJS_PUBLIC_KEY,
+  // PUBLIC_KEY must come from environment variables only for security
+  PUBLIC_KEY: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '',
   
   // Email template parameters
   TEMPLATE_PARAMS: {
