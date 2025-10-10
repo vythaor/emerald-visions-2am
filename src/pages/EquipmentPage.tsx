@@ -1,4 +1,4 @@
-import { Camera, Lightbulb, Monitor, Settings, Cpu, ArrowRight } from "lucide-react";
+import { Camera, Lightbulb, Monitor, Settings, Cpu, ArrowRight, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
@@ -72,6 +72,23 @@ const EquipmentPage = () => {
     },
   ];
 
+  const team = [
+    {
+      name: "UK Studio", 
+      location: "Manchester, United Kingdom",
+      avatar: cloudinaryUrl("IMG_8256-min_lqmddg.png", DEFAULT_TRANSFORM),
+      gear: "Sony A7 III, Tamron 28-75mm f/2.8 G2",
+      specialty: "Post-processing & Editing, Portrait Photography, Content Creation & Social Media Management",
+    },
+    {
+      name: "Vietnam Studio",
+      location: "Ho Chi Minh City, Vietnam",
+      avatar: cloudinaryUrl("image_6_rphoeh.png", DEFAULT_TRANSFORM),
+      gear: "Fuji X-Pro2, XF 35mm f/1.4 R",
+      specialty: "Landscape Photography, Film Style Photography, Sales & Makeup Coordination",
+    },
+  ];
+
   return (
     <div className="min-h-screen relative page-transition">
       <GlassBackground />
@@ -88,15 +105,73 @@ const EquipmentPage = () => {
               </span>
             </div>
             <h1 className="font-display text-5xl md:text-7xl font-bold mb-6 glow-text">
-              Professional <span className="bg-gradient-primary bg-clip-text text-transparent">Gear</span>
+              Meet the <span className="bg-gradient-primary bg-clip-text text-transparent">Team</span>
             </h1>
             <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
-              Professional equipment across our UK and Vietnam studios, with refined workflow ensuring exceptional results every time
+              Professional photographers across our global studios, bringing expertise and creativity to every project
             </p>
+          </div>
+
+          {/* Meet the Team Section */}
+          <div className="mb-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {team.map((member, index) => (
+                <div
+                  key={member.name}
+                  className="glass-card rounded-2xl p-8 hover-lift hover:shadow-glow-subtle transition-all animate-fade-in group"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="text-center">
+                    {/* Avatar */}
+                    <div className="relative mx-auto mb-6 w-32 h-32 rounded-full overflow-hidden border-4 border-primary/20 group-hover:border-primary/40 transition-colors">
+                      <img
+                        src={member.avatar}
+                        alt={`${member.name} photographer`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Fallback to a placeholder if image doesn't exist
+                          e.currentTarget.src = `https://via.placeholder.com/128x128/6366f1/ffffff?text=${member.name.charAt(0)}`;
+                        }}
+                      />
+                    </div>
+
+                    {/* Name and Location */}
+                    <h3 className="font-display text-2xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+                      {member.name}
+                    </h3>
+                    <div className="flex items-center justify-center gap-2 mb-6 text-muted-foreground">
+                      <MapPin size={16} />
+                      <span className="text-sm">{member.location}</span>
+                    </div>
+
+                    {/* Gear Info */}
+                    <div className="mb-6">
+                      <h4 className="font-semibold text-sm text-primary mb-2 uppercase tracking-wide">Equipment</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{member.gear}</p>
+                    </div>
+
+                    {/* Specialty */}
+                    <div>
+                      <h4 className="font-semibold text-sm text-primary mb-2 uppercase tracking-wide">Specialty</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{member.specialty}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Equipment Section */}
           <div className="mb-20">
+            <div className="text-center mb-16 animate-fade-in">
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
+                Professional <span className="bg-gradient-primary bg-clip-text text-transparent">Gear</span>
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Professional equipment across our UK and Vietnam studios ensuring the highest quality results
+              </p>
+            </div>
+            
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
               {/* Equipment List */}
               <div className="space-y-6 animate-fade-in">

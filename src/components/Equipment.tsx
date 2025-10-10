@@ -116,6 +116,7 @@ const Equipment = () => {
           </div>
         </div>
 
+
         {/* CTA */}
         <div className="text-center glass-card rounded-2xl p-8 border border-primary/20">
           <p className="text-muted-foreground mb-4">Want to see our full equipment list and process?</p>
