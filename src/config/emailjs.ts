@@ -1,5 +1,6 @@
 // EmailJS Configuration
 // Using direct configuration for reliability
+// Updated to trigger new deployment with environment variables
 export const EMAILJS_CONFIG = {
   // Direct configuration - these are not sensitive credentials
   SERVICE_ID: 'service_lqh5na5',
