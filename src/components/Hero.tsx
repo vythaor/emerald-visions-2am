@@ -1,4 +1,3 @@
-import { ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -74,13 +73,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <a 
-        href="#styles"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 glass-strong rounded-full p-4 animate-bounce cursor-pointer border border-white/20 hover:border-primary/50 transition-all backdrop-blur-sm shadow-xl"
-      >
-        <ArrowDown className="text-primary" size={24} />
-      </a>
     </section>
   );
 };
