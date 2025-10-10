@@ -1,9 +1,11 @@
 // EmailJS Configuration
-// This will be populated by fetching from backend API
-export let EMAILJS_CONFIG = {
+// Using direct configuration for reliability
+export const EMAILJS_CONFIG = {
+  // Direct configuration - these are not sensitive credentials
   SERVICE_ID: 'service_lqh5na5',
   TEMPLATE_ID: 'template_5bugwrq', 
-  PUBLIC_KEY: '', // Will be fetched from backend
+  // Public key will be set from environment variable only
+  PUBLIC_KEY: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '',
   
   // Email template parameters
   TEMPLATE_PARAMS: {
@@ -16,41 +18,50 @@ export let EMAILJS_CONFIG = {
   }
 };
 
-// Fetch EmailJS configuration from backend
-export const fetchEmailJSConfig = async () => {
-  try {
-    const backendUrl = import.meta.env.VITE_IMAGE_SERVER_BASE || 
-      (import.meta.env.PROD 
-        ? 'https://emerald-visions-backend.vercel.app'
-        : 'http://localhost:3001'
-      );
-    
-    const response = await fetch(`${backendUrl}/emailjs-config`);
-    if (response.ok) {
-      const config = await response.json();
-      EMAILJS_CONFIG.PUBLIC_KEY = config.publicKey;
-      console.log('EmailJS config fetched from backend');
-      return true;
-    }
-  } catch (error) {
-    console.warn('Failed to fetch EmailJS config from backend:', error);
-  }
-  return false;
+// Debug function to check configuration
+export const debugEmailJSConfig = () => {
+  console.group('🔍 EmailJS Configuration Debug');
+  console.log('Environment Variables:');
+  console.log('VITE_EMAILJS_SERVICE_ID:', import.meta.env.VITE_EMAILJS_SERVICE_ID || 'NOT SET');
+  console.log('VITE_EMAILJS_TEMPLATE_ID:', import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'NOT SET');
+  console.log('VITE_EMAILJS_PUBLIC_KEY:', import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'NOT SET');
+  
+  console.log('\nFinal Configuration:');
+  console.log('SERVICE_ID:', EMAILJS_CONFIG.SERVICE_ID);
+  console.log('TEMPLATE_ID:', EMAILJS_CONFIG.TEMPLATE_ID);
+  console.log('PUBLIC_KEY:', EMAILJS_CONFIG.PUBLIC_KEY);
+  
+  console.log('\nConfiguration Status:');
+  console.log('Is Configured:', isEmailJSConfigured());
+  
+  console.log('\nDetailed Validation:');
+  console.log('Service ID valid:', EMAILJS_CONFIG.SERVICE_ID.startsWith('service_'));
+  console.log('Template ID valid:', EMAILJS_CONFIG.TEMPLATE_ID.startsWith('template_'));
+  console.log('Public Key valid:', EMAILJS_CONFIG.PUBLIC_KEY.length > 10);
+  
+  console.groupEnd();
+  
+  return {
+    isConfigured: isEmailJSConfigured(),
+    serviceId: EMAILJS_CONFIG.SERVICE_ID,
+    templateId: EMAILJS_CONFIG.TEMPLATE_ID,
+    publicKey: EMAILJS_CONFIG.PUBLIC_KEY
+  };
 };
 
 // EmailJS initialization
 import emailjs from '@emailjs/browser';
 
-export const initializeEmailJS = async () => {
-  // Try to fetch config from backend first
-  await fetchEmailJSConfig();
+export const initializeEmailJS = () => {
+  // Debug the configuration
+  debugEmailJSConfig();
   
   if (EMAILJS_CONFIG.PUBLIC_KEY && EMAILJS_CONFIG.PUBLIC_KEY.length > 10) {
     emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-    console.log('EmailJS initialized successfully with key:', EMAILJS_CONFIG.PUBLIC_KEY.substring(0, 10) + '...');
+    console.log('✅ EmailJS initialized successfully with key:', EMAILJS_CONFIG.PUBLIC_KEY.substring(0, 10) + '...');
     return true;
   } else {
-    console.warn('EmailJS PUBLIC_KEY not found or invalid');
+    console.error('❌ EmailJS PUBLIC_KEY not found or invalid');
     return false;
   }
 };
