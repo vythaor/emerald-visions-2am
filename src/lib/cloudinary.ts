@@ -55,12 +55,62 @@ export async function fetchFolderSources(folder: string, max: number = 30, curso
       count: data.count || 0
     };
   } catch (error) {
-    console.warn(`[cloudinary] Server unavailable, returning empty response for ${folder}:`, error);
+    console.warn(`[cloudinary] Server unavailable, using fallback images for ${folder}:`, error);
+    
+    // Fallback to known images for each folder when backend is down
+    const fallbackImages: Record<string, string[]> = {
+      'indoor': [
+        'DSC03710_oah2bk.jpg',
+        'DSCF0482_gcxzks.jpg', 
+        'DSC03440_hemqqo.jpg',
+        'DSCF0100_zidqs2.jpg',
+        'DSC08986_rjjyff.jpg'
+      ],
+      'outdoor': [
+        'DSC03710_oah2bk.jpg',
+        'DSCF0482_gcxzks.jpg',
+        'DSC03440_hemqqo.jpg',
+        'DSCF0100_zidqs2.jpg',
+        'DSC08986_rjjyff.jpg'
+      ],
+      'wedding': [
+        'DSC03710_oah2bk.jpg',
+        'DSCF0482_gcxzks.jpg',
+        'DSC03440_hemqqo.jpg',
+        'DSCF0100_zidqs2.jpg',
+        'DSC08986_rjjyff.jpg'
+      ],
+      'sport': [
+        'DSC03710_oah2bk.jpg',
+        'DSCF0482_gcxzks.jpg',
+        'DSC03440_hemqqo.jpg',
+        'DSCF0100_zidqs2.jpg',
+        'DSC08986_rjjyff.jpg'
+      ],
+      'event': [
+        'DSC03710_oah2bk.jpg',
+        'DSCF0482_gcxzks.jpg',
+        'DSC03440_hemqqo.jpg',
+        'DSCF0100_zidqs2.jpg',
+        'DSC08986_rjjyff.jpg'
+      ],
+      'enhance': [
+        'DSC01839_xtuzwh.jpg',
+        'DSC07260_htdmbo.jpg',
+        'IMG_1814_1_ax7tik.jpg',
+        'DSC07444_ehovda.jpg',
+        'DSC00131_jqrxjl.jpg'
+      ]
+    };
+    
+    const fallbackForFolder = fallbackImages[folder] || fallbackImages['indoor'];
+    const images = fallbackForFolder.slice(0, max).map(img => cloudinaryUrl(img, DEFAULT_TRANSFORM));
+    
     return {
-      images: [],
+      images,
       hasMore: false,
       nextCursor: null,
-      count: 0
+      count: images.length
     };
   }
 }
