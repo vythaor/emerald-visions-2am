@@ -26,23 +26,46 @@ const Hero = () => {
     <section id="home" className="relative min-h-screen flex items-end justify-center overflow-hidden pb-16">
       {/* Background Photo Grid */}
       <div className="absolute inset-0 grid grid-cols-2 lg:grid-cols-4 gap-0">
-        {heroImages.map((image, index) => (
-          <div
-            key={index}
-            className="relative overflow-hidden group"
-            style={{ animationDelay: `${index * 0.2}s` }}
-          >
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="w-full h-full object-cover transition-all duration-1000 ease-out group-hover:scale-105 animate-fade-in"
-            />
-            <div className="absolute inset-0 bg-gradient-overlay opacity-30 group-hover:opacity-20 transition-opacity duration-500" />
-            
-            {/* Hover overlay effect */}
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          </div>
-        ))}
+        {heroImages.map((image, index) => {
+          // Different animation styles for each image
+          const animations = [
+            'animate-slide-in-from-left',
+            'animate-slide-in-from-top', 
+            'animate-slide-in-from-bottom',
+            'animate-slide-in-from-right'
+          ];
+          const animationClass = animations[index % animations.length];
+          
+          return (
+            <div
+              key={index}
+              className={`relative overflow-hidden group ${animationClass}`}
+              style={{ 
+                animationDelay: `${index * 0.15}s`,
+                animationDuration: '0.8s',
+                animationFillMode: 'both'
+              }}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-full object-cover transition-all duration-1000 ease-out group-hover:scale-105 group-hover:rotate-1"
+                style={{
+                  animationDelay: `${index * 0.15 + 0.2}s`,
+                  animationDuration: '1.2s',
+                  animationFillMode: 'both'
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-overlay opacity-30 group-hover:opacity-20 transition-opacity duration-500" />
+              
+              {/* Hover overlay effect */}
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              {/* Subtle shimmer effect on load */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+            </div>
+          );
+        })}
       </div>
 
       {/* Additional overlay for better text contrast */}
