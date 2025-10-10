@@ -25,34 +25,20 @@ const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-end justify-center overflow-hidden pb-16">
       {/* Background Photo Grid */}
-      <div className="absolute inset-0 grid grid-cols-2 lg:grid-cols-4 gap-0">
+      <div className="absolute inset-0 grid grid-cols-2 lg:grid-cols-4 gap-0" style={{ perspective: '1000px' }}>
         {heroImages.map((image, index) => {
-          // Different animation styles for each image
-          const animations = [
-            'animate-slide-in-from-left',
-            'animate-slide-in-from-top', 
-            'animate-slide-in-from-bottom',
-            'animate-slide-in-from-right'
-          ];
-          const animationClass = animations[index % animations.length];
-          
           return (
             <div
               key={index}
-              className={`relative overflow-hidden group ${animationClass}`}
-              style={{ 
-                animationDelay: `${index * 0.15}s`,
-                animationDuration: '0.8s',
-                animationFillMode: 'both'
-              }}
+              className="relative overflow-hidden group"
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-cover transition-all duration-1000 ease-out group-hover:scale-105 group-hover:rotate-1"
+                className="w-full h-full object-cover transition-all duration-1000 ease-out group-hover:scale-105 group-hover:rotate-1 animate-elegant-reveal"
                 style={{
-                  animationDelay: `${index * 0.15 + 0.2}s`,
-                  animationDuration: '1.2s',
+                  animationDelay: `${index * 0.6}s`,
+                  animationDuration: '1.5s',
                   animationFillMode: 'both'
                 }}
               />
