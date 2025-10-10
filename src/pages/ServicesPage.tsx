@@ -1,6 +1,6 @@
 import { Check, Star, Zap, ArrowRight, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
@@ -11,24 +11,44 @@ const ServicesPage = () => {
   const [activeComparison, setActiveComparison] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(50);
   const [enhanceImages, setEnhanceImages] = useState<string[]>([]);
-  const [isLoadingEnhance, setIsLoadingEnhance] = useState(true);
+  const [isLoadingEnhance, setIsLoadingEnhance] = useState(false); // Start with false for faster initial render
 
-  // Fetch images from enhance folder
+  // Memoize the fetch function to prevent unnecessary re-renders
+  const fetchEnhanceImages = useCallback(async () => {
+    if (enhanceImages.length > 0) return; // Don't fetch if already loaded
+    
+    setIsLoadingEnhance(true);
+    try {
+      const response = await fetchFolderSources('enhance', 10, null); // Reduce to 10 images for faster loading
+      setEnhanceImages(response.images);
+    } catch (error) {
+      console.error('Error fetching enhance images:', error);
+      setEnhanceImages([]);
+    } finally {
+      setIsLoadingEnhance(false);
+    }
+  }, [enhanceImages.length]);
+
+  // Use Intersection Observer to load images only when section is visible
   useEffect(() => {
-    const fetchEnhanceImages = async () => {
-      try {
-        const response = await fetchFolderSources('enhance', 20, null);
-        setEnhanceImages(response.images);
-      } catch (error) {
-        console.error('Error fetching enhance images:', error);
-        setEnhanceImages([]);
-      } finally {
-        setIsLoadingEnhance(false);
-      }
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          fetchEnhanceImages();
+          observer.disconnect(); // Only fetch once
+        }
+      },
+      { threshold: 0.1 }
+    );
 
-    fetchEnhanceImages();
-  }, []);
+    const section = document.getElementById('before-after-section');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => observer.disconnect();
+  }, [fetchEnhanceImages]);
+
 
   // Generate before/after pairs from enhance images
   const generateBeforeAfterPairs = () => {
@@ -53,70 +73,87 @@ const ServicesPage = () => {
   const manualBeforeAfterPhotos = [
       {
         id: 1,
-        before: cloudinaryUrl("DSC01522_wymgvg.jpg", DEFAULT_TRANSFORM),
-        after: cloudinaryUrl("DSC01522_nshldu.jpg", DEFAULT_TRANSFORM),
+        before: cloudinaryUrl("DSC01839-2_tafzag.jpg", DEFAULT_TRANSFORM),
+        after: cloudinaryUrl("DSC01839_xtuzwh.jpg", DEFAULT_TRANSFORM),
         title: "Portrait Enhancement"
       },
     {
       id: 2,
-      before: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
+      before: cloudinaryUrl("DSC07260_vyixzw.jpg", DEFAULT_TRANSFORM),
+      after: cloudinaryUrl("DSC07260_htdmbo.jpg", DEFAULT_TRANSFORM),
       title: "Wedding Photo Retouching"
     },
     {
       id: 3,
-      before: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
+      before: cloudinaryUrl("IMG_1814_ayll8x.jpg", DEFAULT_TRANSFORM),
+      after: cloudinaryUrl("IMG_1814_1_ax7tik.jpg", DEFAULT_TRANSFORM),
       title: "Action Shot Enhancement"
     },
     {
       id: 4,
-      before: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
+      before: cloudinaryUrl("DSC07444-Edit_lb0f1p.jpg", DEFAULT_TRANSFORM),
+      after: cloudinaryUrl("DSC07444_ehovda.jpg", DEFAULT_TRANSFORM),
       title: "Outdoor Portrait"
     },
     {
       id: 5,
-      before: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
+      before: cloudinaryUrl("DSC00131-Edit_vgsn2o.jpg", DEFAULT_TRANSFORM),
+      after: cloudinaryUrl("DSC00131_jqrxjl.jpg", DEFAULT_TRANSFORM),
       title: "Event Photography"
     },
     {
       id: 6,
-      before: cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM),
+      before: cloudinaryUrl("DSC09940-Edit-min_yp9xlk.png", DEFAULT_TRANSFORM),
+      after: cloudinaryUrl("DSC09940_omgqgc.jpg", DEFAULT_TRANSFORM),
       title: "Studio Portrait"
     },
     {
       id: 7,
-      before: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
+      before: cloudinaryUrl("DSC03615_vrprop.jpg", DEFAULT_TRANSFORM),
+      after: cloudinaryUrl("DSC03615_e4juka.jpg", DEFAULT_TRANSFORM),
       title: "Couple Session"
     },
     {
       id: 8,
-      before: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
+      before: cloudinaryUrl("DSC01475_k4ud8t.jpg", DEFAULT_TRANSFORM),
+      after: cloudinaryUrl("DSC01475_qnrael.jpg", DEFAULT_TRANSFORM),
       title: "Sports Photography"
     },
     {
       id: 9,
-      before: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
+      before: cloudinaryUrl("DSC08986_islkrm.jpg", DEFAULT_TRANSFORM),
+      after: cloudinaryUrl("DSC08986_umyixs.jpg", DEFAULT_TRANSFORM),
       title: "Nature Photography"
     },
     {
       id: 10,
-      before: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
-      after: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
+      before: cloudinaryUrl("IMG_1836_gncwcd.jpg", DEFAULT_TRANSFORM),
+      after: cloudinaryUrl("IMG_1836_1_qvt7pi.jpg", DEFAULT_TRANSFORM),
       title: "Corporate Event"
     }
   ];
 
-  // Use fetched images if available, otherwise fall back to manual ones
-  const beforeAfterPhotos = enhanceImages.length > 0 
-    ? generateBeforeAfterPairs() 
-    : manualBeforeAfterPhotos;
+  // Memoize before/after photos to prevent unnecessary recalculations
+  const beforeAfterPhotos = useMemo(() => {
+    return enhanceImages.length > 0 
+      ? generateBeforeAfterPairs() 
+      : manualBeforeAfterPhotos;
+  }, [enhanceImages]);
+
+  // Preload the next image for smoother transitions
+  useEffect(() => {
+    if (beforeAfterPhotos.length > 1) {
+      const nextIndex = (activeComparison + 1) % beforeAfterPhotos.length;
+      const nextPhoto = beforeAfterPhotos[nextIndex];
+      
+      // Preload next images
+      const preloadBefore = new Image();
+      preloadBefore.src = nextPhoto.before;
+      
+      const preloadAfter = new Image();
+      preloadAfter.src = nextPhoto.after;
+    }
+  }, [activeComparison, beforeAfterPhotos]);
 
   const services = [
     {
@@ -147,7 +184,7 @@ const ServicesPage = () => {
     },
     {
       title: "Wedding Package",
-      price: "Starting at £400",
+      price: "Starting at £300",
       popular: true,
       features: [
         "6-8 hour coverage",
@@ -262,8 +299,8 @@ const ServicesPage = () => {
 
 
           {/* Before/After Comparison Section */}
-          <div className="glass-card rounded-3xl p-8 md:p-12 mb-16 animate-fade-in border border-primary/20">
-            <div className="text-center mb-12">
+          <div id="before-after-section" className="glass-card rounded-3xl p-8 md:p-12 my-20 animate-fade-in border border-primary/20">
+            <div className="text-center mb-16">
               <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
                 See the <span className="bg-gradient-primary bg-clip-text text-transparent">Difference</span>
               </h2>
@@ -273,9 +310,9 @@ const ServicesPage = () => {
             </div>
 
             {/* Main Comparison Display */}
-            <div className="relative max-w-4xl mx-auto mb-8">
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-                <div className="relative aspect-[4/3] bg-muted">
+            <div className="relative max-w-5xl mx-auto mb-12">
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-muted">
+                <div className="relative w-full h-auto min-h-[500px] max-h-[700px]">
                   {isLoadingEnhance ? (
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="flex items-center gap-3 glass-card rounded-full px-6 py-3">
@@ -289,7 +326,9 @@ const ServicesPage = () => {
                       <img
                         src={beforeAfterPhotos[activeComparison].before}
                         alt="Before"
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="absolute inset-0 w-full h-full object-contain"
+                        loading="eager"
+                        fetchPriority="high"
                       />
                   
                       {/* After Image with Slider */}
@@ -300,7 +339,9 @@ const ServicesPage = () => {
                         <img
                           src={beforeAfterPhotos[activeComparison].after}
                           alt="After"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
+                          loading="eager"
+                          fetchPriority="high"
                         />
                       </div>
 
@@ -336,14 +377,14 @@ const ServicesPage = () => {
                 </div>
 
                 {/* Photo Title */}
-                <h3 className="text-center mt-4 text-xl font-semibold">
+                {/* <h3 className="text-center mt-4 text-xl font-semibold">
                   {beforeAfterPhotos[activeComparison].title}
-                </h3>
+                </h3> */}
               </div>
 
               {/* Thumbnail Navigation */}
               {!isLoadingEnhance && (
-                <div className="flex justify-center gap-4 overflow-x-auto pb-4">
+                <div className="flex justify-center gap-4 overflow-x-auto pb-4 mt-8">
                   {beforeAfterPhotos.map((photo, index) => (
                   <button
                     key={photo.id}
@@ -360,7 +401,8 @@ const ServicesPage = () => {
                     <img
                       src={photo.before}
                       alt={photo.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-primary/20 opacity-0 hover:opacity-100 transition-opacity" />
                   </button>

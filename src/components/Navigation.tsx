@@ -69,10 +69,12 @@ const Navigation = () => {
                 }`} />
               </Link>
             ))}
-            <Button className="btn-primary group">
-              <span className="relative z-10">Book Now</span>
-              <div className="shimmer"></div>
-            </Button>
+            <Link to="/contact">
+              <Button className="btn-primary group">
+                <span className="relative z-10">Book Now</span>
+                <div className="shimmer"></div>
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -101,10 +103,12 @@ const Navigation = () => {
                 {item.label}
               </Link>
             ))}
-            <Button className="w-full mt-4 btn-primary">
-              <span className="relative z-10">Book Now</span>
-              <div className="shimmer"></div>
-            </Button>
+            <Link to="/contact" onClick={() => setIsOpen(false)}>
+              <Button className="w-full mt-4 btn-primary">
+                <span className="relative z-10">Book Now</span>
+                <div className="shimmer"></div>
+              </Button>
+            </Link>
           </div>
         )}
       </div>

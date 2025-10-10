@@ -66,7 +66,7 @@ const ContactPage = () => {
 
   const contactInfo = [
     { icon: Mail, label: "Email", value: "phvythao@gmail.com", link: "mailto:phvythao@gmail.com" },
-    { icon: Phone, label: "Phone", value: "+1 (555) 123-4567", link: "tel:+15551234567" },
+    { icon: Phone, label: "Phone", value: "+44 7857 453 494 (UK) • +84 969 952 523 (VN)", link: "tel:+447857453494" },
     { icon: MapPin, label: "Location", value: "Manchester, UK & Ho Chi Minh City, VN", link: "https://maps.app.goo.gl/RPjHKbZVnE7c37eF9" },
   ];
 
