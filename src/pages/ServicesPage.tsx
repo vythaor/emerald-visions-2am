@@ -1,76 +1,14 @@
-import { Check, Star, Zap, ArrowRight, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { Check, Star, Zap, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
-import { cloudinaryUrl, DEFAULT_TRANSFORM, fetchFolderSources } from "@/lib/cloudinary";
+import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
 
-const ServicesPage = () => {
-  const [activeComparison, setActiveComparison] = useState(0);
-  const [sliderPosition, setSliderPosition] = useState(50);
-  const [enhanceImages, setEnhanceImages] = useState<string[]>([]);
-  const [isLoadingEnhance, setIsLoadingEnhance] = useState(false); // Start with false for faster initial render
-
-  // Memoize the fetch function to prevent unnecessary re-renders
-  const fetchEnhanceImages = useCallback(async () => {
-    if (enhanceImages.length > 0) return; // Don't fetch if already loaded
-    
-    setIsLoadingEnhance(true);
-    try {
-      const response = await fetchFolderSources('enhance', 10, null); // Reduce to 10 images for faster loading
-      setEnhanceImages(response.images);
-    } catch (error) {
-      console.error('Error fetching enhance images:', error);
-      setEnhanceImages([]);
-    } finally {
-      setIsLoadingEnhance(false);
-    }
-  }, [enhanceImages.length]);
-
-  // Use Intersection Observer to load images only when section is visible
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          fetchEnhanceImages();
-          observer.disconnect(); // Only fetch once
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const section = document.getElementById('before-after-section');
-    if (section) {
-      observer.observe(section);
-    }
-
-    return () => observer.disconnect();
-  }, [fetchEnhanceImages]);
-
-
-  // Generate before/after pairs from enhance images
-  const generateBeforeAfterPairs = () => {
-    if (enhanceImages.length === 0) return [];
-
-    // Create pairs from enhance images (assuming even number of images)
-    const pairs = [];
-    for (let i = 0; i < enhanceImages.length && i < 20; i += 2) {
-      if (i + 1 < enhanceImages.length) {
-        pairs.push({
-          id: pairs.length + 1,
-          before: enhanceImages[i],
-          after: enhanceImages[i + 1],
-          title: `Enhancement ${pairs.length + 1}`
-        });
-      }
-    }
-    return pairs;
-  };
-
-  // Manual fallback images (can be customized by replacing IDs)
-  const manualBeforeAfterPhotos = [
+// Manual fallback images (can be customized by replacing IDs)
+const manualBeforeAfterPhotos = [
       {
         id: 1,
         before: cloudinaryUrl("DSC01839-2_tafzag.jpg", DEFAULT_TRANSFORM),
@@ -131,14 +69,14 @@ const ServicesPage = () => {
       after: cloudinaryUrl("IMG_1836_1_qvt7pi.jpg", DEFAULT_TRANSFORM),
       title: "Corporate Event"
     }
-  ];
+];
 
-  // Memoize before/after photos to prevent unnecessary recalculations
-  const beforeAfterPhotos = useMemo(() => {
-    return enhanceImages.length > 0 
-      ? generateBeforeAfterPairs() 
-      : manualBeforeAfterPhotos;
-  }, [enhanceImages]);
+const ServicesPage = () => {
+  const [activeComparison, setActiveComparison] = useState(0);
+  const [sliderPosition, setSliderPosition] = useState(50);
+
+  // Use manual photos for consistency between local and production
+  const beforeAfterPhotos = manualBeforeAfterPhotos;
 
   // Preload the next image for smoother transitions
   useEffect(() => {
@@ -313,15 +251,7 @@ const ServicesPage = () => {
             <div className="relative max-w-5xl mx-auto mb-12">
               <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-muted">
                 <div className="relative w-full h-auto min-h-[500px] max-h-[700px]">
-                  {isLoadingEnhance ? (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="flex items-center gap-3 glass-card rounded-full px-6 py-3">
-                        <Loader2 className="animate-spin text-primary" size={20} />
-                        <span className="text-sm font-medium">Loading before/after photos...</span>
-                      </div>
-                    </div>
-                  ) : (
-                    <div>
+                  <div>
                       {/* Before Image */}
                       <img
                         src={beforeAfterPhotos[activeComparison].before}
@@ -373,7 +303,6 @@ const ServicesPage = () => {
                         className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20"
                       />
                     </div>
-                  )}
                 </div>
 
                 {/* Photo Title */}
@@ -383,8 +312,7 @@ const ServicesPage = () => {
               </div>
 
               {/* Thumbnail Navigation */}
-              {!isLoadingEnhance && (
-                <div className="flex justify-center gap-4 overflow-x-auto pb-4 mt-8">
+              <div className="flex justify-center gap-4 overflow-x-auto pb-4 mt-8">
                   {beforeAfterPhotos.map((photo, index) => (
                   <button
                     key={photo.id}
@@ -408,11 +336,9 @@ const ServicesPage = () => {
                   </button>
                 ))}
                 </div>
-              )}
 
               {/* Navigation Arrows */}
-              {!isLoadingEnhance && (
-                <div className="flex justify-center gap-4 mt-6">
+              <div className="flex justify-center gap-4 mt-6">
                 <button
                   onClick={() => {
                     setActiveComparison(activeComparison > 0 ? activeComparison - 1 : beforeAfterPhotos.length - 1);
@@ -437,7 +363,6 @@ const ServicesPage = () => {
                   <ChevronRight className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </button>
                 </div>
-              )}
             </div>
           </div>
           {/* Add-ons Section */}
