@@ -41,7 +41,6 @@ export async function fetchFolderSources(folder: string, max: number = 30, curso
   if (cursor) {
     url += `&cursor=${encodeURIComponent(cursor)}`;
   }
-  console.log(`[cloudinary] Fetching images from: ${url}`);
   
   try {
     const res = await fetch(url);

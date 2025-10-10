@@ -8,7 +8,6 @@ import { useState } from "react";
 import { toast } from "sonner";
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG, isEmailJSConfigured } from '@/config/emailjs';
-import '@/utils/emailjs-debug'; // Import debug utility
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
