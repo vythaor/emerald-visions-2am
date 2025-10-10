@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
 import StyleNavigation from "@/components/StyleNavigation";
+import MusicPlayer from "@/components/MusicPlayer";
 import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources, cloudinaryUrl } from "@/lib/cloudinary";
 import { useImageGallery } from "@/hooks/use-image-gallery";
 
@@ -200,6 +201,9 @@ const OutdoorStylePage = () => {
       </main>
 
       <Footer />
+      
+      {/* Music Player */}
+      <MusicPlayer styleType="outdoor" />
     </div>
   );
 };
