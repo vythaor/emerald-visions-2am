@@ -1,10 +1,11 @@
 // EmailJS Configuration
 export const EMAILJS_CONFIG = {
   // Using environment variables for security
-  // These should be set in Vercel environment variables
+  // Service ID and Template ID have fallbacks (less sensitive)
+  // Public Key must come from environment variables (more sensitive)
   
-  SERVICE_ID: import.meta.env.VITE_EMAILJS_SERVICE_ID || '',
-  TEMPLATE_ID: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '', 
+  SERVICE_ID: import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_lqh5na5',
+  TEMPLATE_ID: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_5bugwrq', 
   PUBLIC_KEY: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '',
   
   // Email template parameters
@@ -41,6 +42,7 @@ export const isEmailJSConfigured = () => {
     EMAILJS_CONFIG.TEMPLATE_ID.startsWith('template_') &&
     EMAILJS_CONFIG.PUBLIC_KEY && 
     EMAILJS_CONFIG.PUBLIC_KEY.length > 10 &&
-    EMAILJS_CONFIG.PUBLIC_KEY !== '' // Ensure it's not empty
+    EMAILJS_CONFIG.PUBLIC_KEY !== '' && // Ensure it's not empty
+    import.meta.env.VITE_EMAILJS_PUBLIC_KEY // Must come from environment variable
   );
 };
