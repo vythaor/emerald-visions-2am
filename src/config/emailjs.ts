@@ -1,12 +1,12 @@
 // EmailJS Configuration
 // Using direct configuration for reliability
-// Updated to trigger new deployment with environment variables
+import { ENV_CONFIG } from './env';
+
 export const EMAILJS_CONFIG = {
-  // Direct configuration - these are not sensitive credentials
-  SERVICE_ID: 'service_lqh5na5',
-  TEMPLATE_ID: 'template_5bugwrq', 
-  // Public key will be set from environment variable only
-  PUBLIC_KEY: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '',
+  // Use environment variables first, then fallback to direct config
+  SERVICE_ID: import.meta.env.VITE_EMAILJS_SERVICE_ID || ENV_CONFIG.EMAILJS_SERVICE_ID,
+  TEMPLATE_ID: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || ENV_CONFIG.EMAILJS_TEMPLATE_ID,
+  PUBLIC_KEY: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || ENV_CONFIG.EMAILJS_PUBLIC_KEY,
   
   // Email template parameters
   TEMPLATE_PARAMS: {
