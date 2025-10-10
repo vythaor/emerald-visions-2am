@@ -6,6 +6,7 @@ import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
+import { servicesPageData } from "@/data/services";
 
 // Manual fallback images (can be customized by replacing IDs)
 const manualBeforeAfterPhotos = [
@@ -93,60 +94,7 @@ const ServicesPage = () => {
     }
   }, [activeComparison, beforeAfterPhotos]);
 
-  const services = [
-    {
-      title: "Portrait Session",
-      price: "Starting at £150",
-      popular: false,
-      features: [
-        "1-2 hour session",
-        "1-2 outfit changes",
-        "Basic lighting setup",
-        "20+ edited photos",
-        "Digital files included",
-        "Online gallery access",
-      ],
-    },
-    {
-      title: "Small Event",
-      price: "Starting at £250",
-      popular: true,
-      features: [
-        "2-4 hour coverage",
-        "Candid & posed shots",
-        "50+ edited photos",
-        "Online gallery delivery",
-        "Print release included",
-        "Basic editing included",
-      ],
-    },
-    {
-      title: "Wedding Package",
-      price: "Starting at £300",
-      popular: true,
-      features: [
-        "6-8 hour coverage",
-        "Engagement session included",
-        "150+ edited photos",
-        "Basic wedding album",
-        "Unlimited consultations",
-        "Flexible payment plans",
-      ],
-    },
-    {
-      title: "Creative Projects",
-      price: "Starting at £200",
-      popular: false,
-      features: [
-        "Collaborative approach",
-        "Creative experimentation",
-        "Portfolio building",
-        "Usage rights included",
-        "Learning together",
-        "Flexible pricing",
-      ],
-    },
-  ];
+  const services = servicesPageData;
 
   const addons = [
     { name: "Additional Hour", price: "£75" },

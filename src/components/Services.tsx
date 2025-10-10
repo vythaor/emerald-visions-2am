@@ -1,51 +1,10 @@
 import { Check, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
+import { servicesData } from "@/data/services";
 
 const Services = () => {
-  const services = [
-    {
-      title: "Professional Photoshoot",
-      features: [
-        "2-4 hour session",
-        "Multiple outfit changes",
-        "Professional lighting setup",
-        "50+ edited photos",
-        "High-resolution digital files",
-      ],
-    },
-    {
-      title: "Event Coverage",
-      features: [
-        "Full-day event coverage",
-        "Multiple photographers",
-        "Candid & posed shots",
-        "100+ edited photos",
-        "Online gallery delivery",
-      ],
-    },
-    {
-      title: "Wedding Package",
-      features: [
-        "8-12 hour coverage",
-        "Engagement session included",
-        "Second photographer",
-        "300+ edited photos",
-        "Custom wedding album",
-        "Video highlights",
-      ],
-    },
-    {
-      title: "Commercial Photography",
-      features: [
-        "Product photography",
-        "Brand content creation",
-        "Marketing materials",
-        "Usage rights included",
-        "Fast turnaround",
-      ],
-    },
-  ];
+  const services = servicesData;
 
   return (
     <section id="services" className="py-20 relative">
