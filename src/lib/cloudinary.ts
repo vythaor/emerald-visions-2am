@@ -37,7 +37,7 @@ export async function fetchFolderSources(folder: string, max: number = 30, curso
       : 'http://localhost:3001' // In development, use local server
     );
   
-  let url = `${serverBase}/images?folder=${encodeURIComponent(folder)}&max=${max}`;
+  let url = `${serverBase}/api/images?folder=${encodeURIComponent(folder)}&max=${max}`;
   if (cursor) {
     url += `&cursor=${encodeURIComponent(cursor)}`;
   }
