@@ -25,7 +25,7 @@ export const fetchEmailJSConfig = async () => {
         : 'http://localhost:3001'
       );
     
-    const response = await fetch(`${backendUrl}/api/emailjs-config`);
+    const response = await fetch(`${backendUrl}/emailjs-config`);
     if (response.ok) {
       const config = await response.json();
       EMAILJS_CONFIG.PUBLIC_KEY = config.publicKey;
@@ -64,7 +64,6 @@ export const isEmailJSConfigured = () => {
     EMAILJS_CONFIG.TEMPLATE_ID.startsWith('template_') &&
     EMAILJS_CONFIG.PUBLIC_KEY && 
     EMAILJS_CONFIG.PUBLIC_KEY.length > 10 &&
-    EMAILJS_CONFIG.PUBLIC_KEY !== '' && // Ensure it's not empty
-    import.meta.env.VITE_EMAILJS_PUBLIC_KEY // Must come from environment variable
+    EMAILJS_CONFIG.PUBLIC_KEY !== '' // Ensure it's not empty
   );
 };
