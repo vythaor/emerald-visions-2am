@@ -11,7 +11,7 @@ export const MUSIC_CONFIG = {
       title: 'Sport Style Music'
     },
   indoor: {
-    url: 'https://www.youtube.com/watch?v=1NBnN0IAljQ', // Replace with your indoor style song
+    url: 'https://youtu.be/1NBnN0IAljQ?si=SFaxzFY6-UKVZ6P1&t=28', // Replace with your indoor style song
     title: 'Indoor Style Music'
   },
   outdoor: {
@@ -33,5 +33,17 @@ export function getYouTubeVideoId(url: string): string | null {
 // Helper function to get YouTube embed URL
 export function getYouTubeEmbedUrl(url: string): string | null {
   const videoId = getYouTubeVideoId(url);
-  return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}` : null;
+  if (!videoId) return null;
+  
+  // Extract timestamp parameter from original URL
+  const urlObj = new URL(url);
+  const timestamp = urlObj.searchParams.get('t');
+  
+  // Build embed URL with timestamp if present
+  let embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}`;
+  if (timestamp) {
+    embedUrl += `&start=${timestamp}`;
+  }
+  
+  return embedUrl;
 }

@@ -79,6 +79,7 @@ const EquipmentPage = () => {
       avatar: cloudinaryUrl("IMG_8256-min_lqmddg.png", DEFAULT_TRANSFORM),
       gear: "Sony A7 III, Tamron 28-75mm f/2.8 G2",
       specialty: "Post-processing & Editing, Portrait Photography, Content Creation & Social Media Management",
+      description: "I'm Sherry, founder of 2am Studio. Currently studying for my master's degree in Manchester, with a strong focus on post-processing and image editing. I specialize in portrait photography and manage our social media content.",
     },
     {
       name: "Vietnam Studio",
@@ -86,6 +87,7 @@ const EquipmentPage = () => {
       avatar: cloudinaryUrl("image_6_rphoeh.png", DEFAULT_TRANSFORM),
       gear: "Fuji X-Pro2, XF 35mm f/1.4 R",
       specialty: "Landscape Photography, Film Style Photography, Sales & Makeup Coordination",
+      description: "I'm Ngoc Tran, passionate about landscape photography with a film aesthetic approach. I handle client relations, sales coordination, and makeup styling for our Vietnam studio operations.",
     },
   ];
 
@@ -142,6 +144,12 @@ const EquipmentPage = () => {
                     <div className="flex items-center justify-center gap-2 mb-6 text-muted-foreground">
                       <MapPin size={16} />
                       <span className="text-sm">{member.location}</span>
+                    </div>
+
+                    {/* Description */}
+                    <div className="mb-6">
+                      <h4 className="font-semibold text-sm text-primary mb-2 uppercase tracking-wide">About</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed italic">{member.description}</p>
                     </div>
 
                     {/* Gear Info */}

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Music, Volume2, VolumeX } from 'lucide-react';
-import { MUSIC_CONFIG } from '@/config/music';
+import { MUSIC_CONFIG, getYouTubeVideoId } from '@/config/music';
 
 interface MusicPlayerProps {
   styleType: 'event' | 'sport' | 'indoor' | 'outdoor' | 'wedding';
@@ -14,17 +14,15 @@ const MusicPlayer = ({ styleType, playbackRate = 1.0 }: MusicPlayerProps) => {
 
   // Get music config for this style from centralized config
   const currentMusic = MUSIC_CONFIG[styleType];
-  
-  // Extract YouTube video ID
-  const getYouTubeVideoId = (url: string): string | null => {
-    const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/);
-    return match ? match[1] : null;
-  };
 
-  // Get YouTube embed URL
-  const getYouTubeEmbedUrl = (url: string, autoplay: boolean = false, muted: boolean = true, speed: number = 1.0): string | null => {
+  // Get YouTube embed URL with timestamp support
+  const getYouTubeEmbedUrl = (url: string, autoplay: boolean = false, muted: boolean = true): string | null => {
     const videoId = getYouTubeVideoId(url);
     if (!videoId) return null;
+    
+    // Extract timestamp parameter from original URL
+    const urlObj = new URL(url);
+    const timestamp = urlObj.searchParams.get('t');
     
     const params = new URLSearchParams({
       autoplay: autoplay ? '1' : '0',
@@ -35,14 +33,18 @@ const MusicPlayer = ({ styleType, playbackRate = 1.0 }: MusicPlayerProps) => {
       showinfo: '0',
       rel: '0',
       modestbranding: '1',
-      // Note: YouTube embed API doesn't directly support playbackRate in URL params
-      // We'll need to use postMessage API to control playback speed
+      enablejsapi: '1', // Enable JavaScript API for postMessage
     });
+    
+    // Add timestamp if present
+    if (timestamp) {
+      params.set('start', timestamp);
+    }
     
     return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
   };
 
-  const embedUrl = getYouTubeEmbedUrl(currentMusic.url, isPlaying, isMuted, playbackRate);
+  const embedUrl = getYouTubeEmbedUrl(currentMusic.url, isPlaying, isMuted);
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
@@ -54,7 +56,7 @@ const MusicPlayer = ({ styleType, playbackRate = 1.0 }: MusicPlayerProps) => {
   };
 
   // Send commands to YouTube iframe
-  const sendYouTubeCommand = (command: string, args: any[] = []) => {
+  const sendYouTubeCommand = (command: string, args: unknown[] = []) => {
     if (iframeRef.current?.contentWindow) {
       iframeRef.current.contentWindow.postMessage(
         JSON.stringify({

@@ -203,7 +203,7 @@ const SportStylePage = () => {
       <Footer />
       
       {/* Music Player */}
-      <MusicPlayer styleType="sport" playbackRate={1.25} />
+      <MusicPlayer styleType="sport" />
     </div>
   );
 };
