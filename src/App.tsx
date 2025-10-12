@@ -31,12 +31,12 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/styles" element={<StylesPage />} />
-          <Route path="/styles/indoor" element={<IndoorStylePage />} />
-          <Route path="/styles/wedding" element={<WeddingStylePage />} />
-          <Route path="/styles/sport" element={<SportStylePage />} />
-          <Route path="/styles/outdoor" element={<OutdoorStylePage />} />
-          <Route path="/styles/event" element={<EventStylePage />} />
+          <Route path="/genres" element={<StylesPage />} />
+          <Route path="/genres/indoor" element={<IndoorStylePage />} />
+          <Route path="/genres/wedding" element={<WeddingStylePage />} />
+          <Route path="/genres/sport" element={<SportStylePage />} />
+          <Route path="/genres/outdoor" element={<OutdoorStylePage />} />
+          <Route path="/genres/event" element={<EventStylePage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/equipment" element={<EquipmentPage />} />
           <Route path="/contact" element={<ContactPage />} />

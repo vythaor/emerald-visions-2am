@@ -1,7 +1,7 @@
 // Shared services data - single source of truth
 export const servicesData = [
   {
-    title: "Professional Photoshoot",
+    title: "Portrait Session",
     features: [
       "1-4 hour session",
       "No limit outfit changes", 
@@ -12,7 +12,7 @@ export const servicesData = [
     ],
   },
   {
-    title: "Event Coverage", 
+    title: "Small Event", 
     features: [
       "2-8 hour coverage",
       "Candid & posed shots",
@@ -34,7 +34,7 @@ export const servicesData = [
     ],
   },
   {
-    title: "Commercial Photography",
+    title: "Creative Projects",
     features: [
       "Collaborative approach",
       "Creative experimentation",

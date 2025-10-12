@@ -3,46 +3,46 @@ import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
 import { Link } from "react-router-dom";
 
 const Styles = () => {
-  const styles = [
+  const genres = [
         {
           title: "Indoor & Studio",
           description: "Professional indoor photography with controlled lighting and studio environments",
           image: cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM),
           size: "large", // Takes more space
-          route: "/styles/indoor",
+          route: "/genres/indoor",
         },
         {
           title: "Wedding",
           description: "Romantic wedding moments captured with artistic storytelling",
           image: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
           size: "medium",
-          route: "/styles/wedding",
+          route: "/genres/wedding",
         },
         {
           title: "Sport & Action",
           description: "Dynamic sports photography freezing moments of peak performance",
           image: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
           size: "medium",
-          route: "/styles/sport",
+          route: "/genres/sport",
         },
         {
           title: "Outdoor & Nature",
           description: "Beautiful natural landscapes and outdoor portrait sessions",
           image: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
           size: "large",
-          route: "/styles/outdoor",
+          route: "/genres/outdoor",
         },
         {
           title: "Events & Corporate",
           description: "Professional event coverage and corporate photography",
           image: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
           size: "medium",
-          route: "/styles/event",
+          route: "/genres/event",
         },
   ];
 
   return (
-    <section id="styles" className="py-20 bg-muted/30 relative overflow-hidden">
+    <section id="genres" className="py-20 bg-muted/30 relative overflow-hidden">
       {/* Animated background gradients */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full blur-[100px] animate-pulse" />
@@ -58,32 +58,32 @@ const Styles = () => {
             </span>
           </div>
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            Photography <span className="bg-gradient-primary bg-clip-text text-transparent">Styles</span>
+            Photography <span className="bg-gradient-primary bg-clip-text text-transparent">Genres</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             From intimate portraits to grand celebrations, we capture every moment with artistic excellence
           </p>
         </div>
 
-        {/* Photography Styles Grid */}
+        {/* Photography Genres Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           {/* Indoor & Studio */}
           <StyleCard 
-            {...styles[0]} 
+            {...genres[0]} 
             className=""
             index={0}
           />
           
           {/* Wedding */}
           <StyleCard 
-            {...styles[1]} 
+            {...genres[1]} 
             className=""
             index={1}
           />
           
           {/* Sport & Action */}
           <StyleCard 
-            {...styles[2]} 
+            {...genres[2]} 
             className=""
             index={2}
           />
@@ -93,14 +93,14 @@ const Styles = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           {/* Outdoor & Nature - Large Left */}
           <StyleCard 
-            {...styles[3]} 
+            {...genres[3]} 
             className=""
             index={3}
           />
           
           {/* Events & Corporate - Right */}
           <StyleCard 
-            {...styles[4]} 
+            {...genres[4]} 
             className=""
             index={4}
           />
@@ -109,7 +109,7 @@ const Styles = () => {
         {/* View All Button */}
         <div className="flex justify-end animate-fade-in" style={{ animationDelay: "0.5s" }}>
           <Link
-            to="/styles"
+            to="/genres"
             className="group inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-glow transition-colors duration-300"
           >
             <span>View All</span>

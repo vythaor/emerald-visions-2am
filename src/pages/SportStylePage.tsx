@@ -7,6 +7,7 @@ import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
 import StyleNavigation from "@/components/StyleNavigation";
 import MusicPlayer from "@/components/MusicPlayer";
+import ScrollToTop from "@/components/ScrollToTop";
 import { resolveCloudinarySource, DEFAULT_TRANSFORM, fetchFolderSources, cloudinaryUrl } from "@/lib/cloudinary";
 import { useImageGallery } from "@/hooks/use-image-gallery";
 
@@ -63,11 +64,11 @@ const SportStylePage = () => {
         <div className="container mx-auto px-4">
           {/* Back Button */}
           <Link 
-            to="/styles" 
+            to="/genres" 
             className="inline-flex items-center gap-2 text-primary hover:text-primary-glow transition-colors mb-8 animate-fade-in"
           >
             <ArrowLeft size={20} />
-            <span>Back to Styles</span>
+            <span>Back to Genres</span>
           </Link>
 
           {/* Hero Section */}
@@ -155,7 +156,7 @@ const SportStylePage = () => {
           </div>
 
           {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 mt-16">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 mt-16">
             {features.map((feature, index) => (
               <div
                 key={feature.title}
@@ -169,7 +170,7 @@ const SportStylePage = () => {
                 <p className="text-muted-foreground text-sm">{feature.description}</p>
               </div>
             ))}
-          </div>
+          </div> */}
 
           {/* CTA Section */}
           <div className="mt-16 text-center glass-card rounded-3xl p-12 border border-primary/20 animate-fade-in">
@@ -204,6 +205,9 @@ const SportStylePage = () => {
       
       {/* Music Player */}
       <MusicPlayer styleType="sport" />
+      
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </div>
   );
 };

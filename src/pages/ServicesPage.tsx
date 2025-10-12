@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 import { Card } from "@/components/ui/card";
 import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
 import { servicesPageData } from "@/data/services";
@@ -400,6 +401,9 @@ const ServicesPage = () => {
       </main>
 
       <Footer />
+      
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </div>
   );
 };

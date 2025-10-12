@@ -6,41 +6,41 @@ import Footer from "@/components/Footer";
 import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
 
 const StylesPage = () => {
-  const styles = [
+  const genres = [
         {
           title: "Indoor & Studio",
           description: "Professional indoor photography with controlled lighting and studio environments. Capturing personality, elegance, and style in every frame.",
           image: cloudinaryUrl("DSC03710_oah2bk.jpg", DEFAULT_TRANSFORM),
           features: ["Studio Sessions", "Fashion Editorial", "Headshots", "Personal Branding"],
-          link: "/styles/indoor",
+          link: "/genres/indoor",
         },
         {
           title: "Wedding",
           description: "Romantic wedding moments captured with artistic storytelling. From intimate ceremonies to grand celebrations.",
           image: cloudinaryUrl("DSCF0482_gcxzks.jpg", DEFAULT_TRANSFORM),
-          features: ["Full Day Coverage", "Engagement Shoots", "Wedding Albums", "Cinematic Style"],
-          link: "/styles/wedding",
+          features: ["Full Day Coverage", "Engagement Shoots", "50+ edited photos", "Cinematic Style"],
+          link: "/genres/wedding",
         },
         {
           title: "Sport & Action",
           description: "Dynamic sports photography freezing moments of peak performance. Energy, motion, and triumph captured perfectly.",
           image: cloudinaryUrl("DSC03440_hemqqo.jpg", DEFAULT_TRANSFORM),
           features: ["Action Shots", "Team Photos", "Event Coverage", "Athletic Portraits"],
-          link: "/styles/sport",
+          link: "/genres/sport",
         },
         {
           title: "Outdoor & Nature",
           description: "Beautiful natural landscapes and outdoor portrait sessions. Harnessing natural light for stunning results.",
           image: cloudinaryUrl("DSCF0100_zidqs2.jpg", DEFAULT_TRANSFORM),
           features: ["Golden Hour", "Scenic Locations", "Nature Portraits", "Adventure Sessions"],
-          link: "/styles/outdoor",
+          link: "/genres/outdoor",
         },
         {
           title: "Events & Corporate",
           description: "Professional event coverage and corporate photography. Capturing the essence of your professional moments.",
           image: cloudinaryUrl("DSC08986_rjjyff.jpg", DEFAULT_TRANSFORM),
           features: ["Conference Coverage", "Corporate Events", "Product Launches", "Networking Events"],
-          link: "/styles/event",
+          link: "/genres/event",
         },
   ];
 
@@ -56,7 +56,7 @@ const StylesPage = () => {
             <div className="inline-flex items-center gap-2 mb-4 px-6 py-3 rounded-full glass-strong border border-primary/30">
               <Sparkles className="text-primary animate-pulse" size={20} />
               <span className="text-sm font-semibold uppercase tracking-wider bg-gradient-primary bg-clip-text text-transparent">
-                Photography Styles
+                Photography Genres
               </span>
             </div>
             <h1 className="font-display text-5xl md:text-7xl font-bold mb-6 glow-text">
@@ -67,20 +67,20 @@ const StylesPage = () => {
             </p>
           </div>
 
-          {/* Styles Grid */}
+          {/* Genres Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {styles.map((style, index) => (
+            {genres.map((genre, index) => (
               <Link
-                key={style.title}
-                to={style.link}
+                key={genre.title}
+                to={genre.link}
                 className="group relative glass-photo rounded-3xl overflow-hidden hover-lift hover:shadow-glow-photo hover:glass-photo-hover transition-all duration-700 animate-fade-in cursor-pointer"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Image Section */}
                 <div className="relative h-80 overflow-hidden">
                   <img
-                    src={style.image}
-                    alt={style.title}
+                    src={genre.image}
+                    alt={genre.title}
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
                   />
                   <div className="absolute inset-0 bg-gradient-overlay opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
@@ -90,15 +90,15 @@ const StylesPage = () => {
                 {/* Content Section */}
                 <div className="p-8">
                   <h3 className="font-display text-3xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
-                    {style.title}
+                    {genre.title}
                   </h3>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
-                    {style.description}
+                    {genre.description}
                   </p>
 
                   {/* Features */}
                   <div className="grid grid-cols-2 gap-3 mb-6">
-                    {style.features.map((feature) => (
+                    {genre.features.map((feature) => (
                       <div
                         key={feature}
                         className="flex items-center gap-2 text-sm glass rounded-lg px-3 py-2 group-hover:glass-strong transition-all"

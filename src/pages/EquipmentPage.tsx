@@ -4,6 +4,7 @@ import Navigation from "@/components/Navigation";
 import GlassBackground from "@/components/GlassBackground";
 import Footer from "@/components/Footer";
 import { cloudinaryUrl, DEFAULT_TRANSFORM } from "@/lib/cloudinary";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const EquipmentPage = () => {
   const gear = [
@@ -325,6 +326,9 @@ const EquipmentPage = () => {
       </main>
 
       <Footer />
+      
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </div>
   );
 };

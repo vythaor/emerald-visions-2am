@@ -95,7 +95,7 @@ const Hero = () => {
                 <div 
                   className="absolute top-1/2 left-1/2 w-0.5 h-8 bg-gradient-primary origin-bottom transform -translate-x-1/2 -translate-y-full transition-transform duration-1000 ease-out"
                   style={{ 
-                    transform: `translate(-50%, -100%) rotate(${allImagesLoaded ? 0 : (loadedImages / heroImages.length) * 360}deg)`
+                    transform: `translate(-50%, -100%) rotate(${(loadedImages / heroImages.length) * 360}deg)`
                   }}
                 ></div>
                 
@@ -130,10 +130,10 @@ const Hero = () => {
             2am<span className="bg-gradient-primary bg-clip-text text-transparent">studio</span>
           </h1>
           <p className="text-lg md:text-xl text-foreground/90 mb-6 animate-fade-in-up leading-relaxed font-medium" style={{ animationDelay: "0.2s" }}>
-            Photography studio in United Kingdom and Vietnam
+            Photography Services in Manchester, UK
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
-            <Link to="/styles">
+            <Link to="/genres">
               <Button size="lg" className="btn-primary px-6 py-3 group shadow-xl">
                 <span className="relative z-10">View Portfolio</span>
                 <div className="shimmer"></div>
