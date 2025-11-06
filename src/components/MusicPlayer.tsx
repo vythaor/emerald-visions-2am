@@ -25,7 +25,7 @@ const MusicPlayer = ({ styleType, playbackRate = 1.0 }: MusicPlayerProps) => {
     const timestamp = urlObj.searchParams.get('t');
     
     const params = new URLSearchParams({
-      autoplay: autoplay ? '1' : '0',
+      autoplay: autoplay ? '0' : '1',
       mute: muted ? '1' : '0',
       loop: '1',
       playlist: videoId,
