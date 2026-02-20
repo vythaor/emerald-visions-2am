@@ -113,7 +113,7 @@ const Portfolio = () => {
               <span className="bg-gradient-primary bg-clip-text text-transparent">Sherry Photography</span> Portfolio
             </h1>
             <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
-              Each section showcases our finest work in indoor, outdoor, wedding, sport, and event photography.
+              Each section showcases my finest work in portraits, prewedding, event and landscape photography.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
                 <div className="mt-4">
