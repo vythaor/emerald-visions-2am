@@ -10,92 +10,78 @@ import { Button } from "@/components/ui/button";
 
 const Portfolio = () => {
   // Fetch images for each genre
-  const { images: indoorImages } = useImageGallery({
-    folder: 'indoor',
+  const { images: portraitsImages } = useImageGallery({
+    folder: 'portraits',
     fallbackImage: "DSC03710_oah2bk.jpg",
-    pageSize: 10
+    pageSize: 20
   });
 
-  const { images: outdoorImages } = useImageGallery({
-    folder: 'outdoor',
-    fallbackImage: "DSCF0100_zidqs2.jpg",
-    pageSize: 10
-  });
-
-  const { images: weddingImages } = useImageGallery({
-    folder: 'wedding',
+  const { images: preweddingImages } = useImageGallery({
+    folder: 'prewedding',
     fallbackImage: "DSCF0482_gcxzks.jpg",
-    pageSize: 10
+    pageSize: 20
   });
 
-  const { images: sportImages } = useImageGallery({
-    folder: 'sport',
+  const { images: activitiesImages } = useImageGallery({
+    folder: 'activities',
     fallbackImage: "DSC03440_hemqqo.jpg",
-    pageSize: 10
+    pageSize: 20
   });
 
-  const { images: eventImages } = useImageGallery({
-    folder: 'event',
+  const { images: landscapeImages } = useImageGallery({
+    folder: 'landscape',
     fallbackImage: "DSC08986_rjjyff.jpg",
-    pageSize: 10
+    pageSize: 20
   });
 
   const { images: mmuImages } = useImageGallery({
     folder: 'mmu',
     fallbackImage: "DSC08986_rjjyff.jpg",
-    pageSize: 10
+    pageSize: 20
   });
 
   // Limit to 10 images per genre and create gallery items
   const genres = [
     {
         name: "MMU Events",
-        images: indoorImages.slice(0, 10).map((src, idx) => ({
-          id: `indoor-${idx + 1}`,
+        images: mmuImages.slice(0, 10).map((src, idx) => ({
+          id: `mmu-${idx + 1}`,
           src,
-          alt: `Indoor ${idx + 1}`,
+          alt: `MMU ${idx + 1}`,
         })),
       },
     {
-      name: "Indoor",
-      images: indoorImages.slice(0, 10).map((src, idx) => ({
-        id: `indoor-${idx + 1}`,
+      name: "Portraits",
+      images: portraitsImages.slice(0, 20).map((src, idx) => ({
+        id: `portraits-${idx + 1}`,
         src,
-        alt: `Indoor ${idx + 1}`,
+        alt: `Portraits ${idx + 1}`,
       })),
     },
     {
-      name: "Outdoor",
-      images: outdoorImages.slice(0, 10).map((src, idx) => ({
-        id: `outdoor-${idx + 1}`,
+      name: "Prewedding",
+      images: preweddingImages.slice(0, 20).map((src, idx) => ({
+        id: `prewedding-${idx + 1}`,
         src,
-        alt: `Outdoor ${idx + 1}`,
+        alt: `Prewedding ${idx + 1}`,
       })),
     },
     {
-      name: "Wedding",
-      images: weddingImages.slice(0, 10).map((src, idx) => ({
-        id: `wedding-${idx + 1}`,
+      name: "Events",
+      images: activitiesImages.slice(0, 20).map((src, idx) => ({
+        id: `activities-${idx + 1}`,
         src,
-        alt: `Wedding ${idx + 1}`,
+        alt: `Events ${idx + 1}`,
       })),
     },
     {
-      name: "Sport",
-      images: sportImages.slice(0, 10).map((src, idx) => ({
-        id: `sport-${idx + 1}`,
-        src,
-        alt: `Sport ${idx + 1}`,
-      })),
-    },
-    {
-      name: "Event",
-      images: eventImages.slice(0, 10).map((src, idx) => ({
-        id: `event-${idx + 1}`,
-        src,
-        alt: `Event ${idx + 1}`,
-      })),
-    },
+        name: "Landscape",
+        images: landscapeImages.slice(0, 20).map((src, idx) => ({
+          id: `landscape-${idx + 1}`,
+          src,
+          alt: `Landscape ${idx + 1}`,
+        })),
+      }
   ];
 
   const [previewOpen, setPreviewOpen] = React.useState(false);
@@ -157,7 +143,7 @@ const Portfolio = () => {
               </h2>
               
               {/* Masonry Grid */}
-              <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-0">
+              <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-5 gap-0">
                 {genre.images.map((image, index) => (
                   <div
                     key={image.id}
