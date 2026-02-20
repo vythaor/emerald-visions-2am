@@ -15,6 +15,7 @@ import WeddingStylePage from "./pages/WeddingStylePage";
 import SportStylePage from "./pages/SportStylePage";
 import OutdoorStylePage from "./pages/OutdoorStylePage";
 import EventStylePage from "./pages/EventStylePage";
+import Portfolio from "./pages/Portfolio";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/genres/sport" element={<SportStylePage />} />
           <Route path="/genres/outdoor" element={<OutdoorStylePage />} />
           <Route path="/genres/event" element={<EventStylePage />} />
+          <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/equipment" element={<EquipmentPage />} />
           <Route path="/contact" element={<ContactPage />} />

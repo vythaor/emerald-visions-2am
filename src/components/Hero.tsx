@@ -133,7 +133,7 @@ const Hero = () => {
             Photography Services in Manchester, UK
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
-            <Link to="/genres">
+            <Link to="/portfolio">
               <Button size="lg" className="btn-primary px-6 py-3 group shadow-xl">
                 <span className="relative z-10">View Portfolio</span>
                 <div className="shimmer"></div>
