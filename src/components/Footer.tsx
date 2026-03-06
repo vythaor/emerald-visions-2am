@@ -87,7 +87,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 text-center text-muted-foreground text-sm">
-          <p>© 2025 2amstudio. All rights reserved. <a href="https://vythaor.design" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-glow transition-colors">Sherry</a> vibe coding with <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-glow transition-colors">Lovable</a> and <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-glow transition-colors">Cursor.</a></p>
+          <p>© 2025 2amstudio. All rights reserved. <a href="https://vythao.design" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-glow transition-colors">Sherry</a> vibe coding with <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-glow transition-colors">Lovable</a> and <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-glow transition-colors">Cursor.</a></p>
         </div>
       </div>
     </footer>
