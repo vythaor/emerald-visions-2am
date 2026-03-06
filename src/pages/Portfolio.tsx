@@ -28,6 +28,12 @@ const Portfolio = () => {
     pageSize: 20
   });
 
+  const { images: babiesImages } = useImageGallery({
+    folder: 'babies',
+    fallbackImage: "DSC03440_hemqqo.jpg",
+    pageSize: 20
+  });
+
   const { images: landscapeImages } = useImageGallery({
     folder: 'landscape',
     fallbackImage: "DSC08986_rjjyff.jpg",
@@ -64,6 +70,14 @@ const Portfolio = () => {
         id: `prewedding-${idx + 1}`,
         src,
         alt: `Prewedding ${idx + 1}`,
+      })),
+    },
+    {
+      name: "Babies",
+      images: babiesImages.slice(0, 20).map((src, idx) => ({
+        id: `babies-${idx + 1}`,
+        src,
+        alt: `Babies ${idx + 1}`,
       })),
     },
     {
