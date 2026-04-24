@@ -127,7 +127,7 @@ const Portfolio = () => {
   const genres = [
     {
       name: "MMU Events",
-      images: mmuImages.slice(0, 10).map((src, idx) => ({
+      images: mmuImages.slice(0, 30).map((src, idx) => ({
         id: `mmu-${idx + 1}`,
         src,
         alt: `MMU ${idx + 1}`,
@@ -135,7 +135,7 @@ const Portfolio = () => {
     },
     {
       name: "Company Events",
-      images: companyImages.slice(0, 20).map((src, idx) => ({
+      images: companyImages.slice(0, 50).map((src, idx) => ({
         id: `company-${idx + 1}`,
         src,
         alt: `Company ${idx + 1}`,
