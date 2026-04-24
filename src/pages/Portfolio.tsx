@@ -93,6 +93,18 @@ const Portfolio = () => {
     pageSize: 20
   });
 
+  const { images: companyImages } = useImageGallery({
+    folder: 'event',
+    fallbackImage: "DSC03440_hemqqo.jpg",
+    pageSize: 20
+  });
+
+  const { images: sportImages } = useImageGallery({
+    folder: 'sport',
+    fallbackImage: "DSC03440_hemqqo.jpg",
+    pageSize: 20
+  });
+
   const { images: babiesImages } = useImageGallery({
     folder: 'babies',
     fallbackImage: "DSC03440_hemqqo.jpg",
@@ -122,6 +134,22 @@ const Portfolio = () => {
       })),
     },
     {
+      name: "Company Events",
+      images: companyImages.slice(0, 20).map((src, idx) => ({
+        id: `company-${idx + 1}`,
+        src,
+        alt: `Company ${idx + 1}`,
+      })),
+    },
+    {
+      name: "Sport Events",
+      images: sportImages.slice(0, 20).map((src, idx) => ({
+        id: `sport-${idx + 1}`,
+        src,
+        alt: `Sport ${idx + 1}`,
+      })),
+    },
+    {
       name: "Portraits",
       images: portraitsImages.slice(0, 20).map((src, idx) => ({
         id: `portraits-${idx + 1}`,
@@ -137,22 +165,14 @@ const Portfolio = () => {
         alt: `Prewedding ${idx + 1}`,
       })),
     },
-    {
-      name: "Babies",
-      images: babiesImages.slice(0, 20).map((src, idx) => ({
-        id: `babies-${idx + 1}`,
-        src,
-        alt: `Babies ${idx + 1}`,
-      })),
-    },
-    {
-      name: "Events",
-      images: activitiesImages.slice(0, 20).map((src, idx) => ({
-        id: `activities-${idx + 1}`,
-        src,
-        alt: `Events ${idx + 1}`,
-      })),
-    },
+    // {
+    //   name: "Babies",
+    //   images: babiesImages.slice(0, 20).map((src, idx) => ({
+    //     id: `babies-${idx + 1}`,
+    //     src,
+    //     alt: `Babies ${idx + 1}`,
+    //   })),
+    // },
     {
       name: "Landscape",
       images: landscapeImages.slice(0, 20).map((src, idx) => ({
@@ -348,8 +368,8 @@ const Portfolio = () => {
                       setSliderPosition(50);
                     }}
                     className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden transition-all duration-300 ${activeComparison === index
-                        ? 'ring-2 ring-primary shadow-lg scale-105'
-                        : 'opacity-70 hover:opacity-100 hover:scale-105'
+                      ? 'ring-2 ring-primary shadow-lg scale-105'
+                      : 'opacity-70 hover:opacity-100 hover:scale-105'
                       }`}
                   >
                     <img
