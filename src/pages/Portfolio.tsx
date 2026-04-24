@@ -74,112 +74,139 @@ const manualBeforeAfterPhotos = [
 ];
 
 const Portfolio = () => {
-  // Fetch images for each genre
-  const { images: portraitsImages } = useImageGallery({
+  // Fetch images for each genre with infinite scroll support
+  const {
+    images: portraitsImages,
+    setLoadMoreRef: portraitsLoadMoreRef,
+    hasMore: portraitsHasMore,
+    isLoading: portraitsIsLoading,
+  } = useImageGallery({
     folder: 'portraits',
     fallbackImage: "DSC03710_oah2bk.jpg",
     pageSize: 20
   });
 
-  const { images: preweddingImages } = useImageGallery({
+  const {
+    images: preweddingImages,
+    setLoadMoreRef: preweddingLoadMoreRef,
+    hasMore: preweddingHasMore,
+    isLoading: preweddingIsLoading,
+  } = useImageGallery({
     folder: 'prewedding',
     fallbackImage: "DSCF0482_gcxzks.jpg",
     pageSize: 20
   });
 
-  const { images: activitiesImages } = useImageGallery({
-    folder: 'activities',
-    fallbackImage: "DSC03440_hemqqo.jpg",
-    pageSize: 20
-  });
+  // const { images: activitiesImages } = useImageGallery({
+  //   folder: 'activities',
+  //   fallbackImage: "DSC03440_hemqqo.jpg",
+  //   pageSize: 20
+  // });
 
-  const { images: companyImages } = useImageGallery({
+  const {
+    images: companyImages,
+    setLoadMoreRef: companyLoadMoreRef,
+    hasMore: companyHasMore,
+    isLoading: companyIsLoading,
+  } = useImageGallery({
     folder: 'event',
     fallbackImage: "DSC03440_hemqqo.jpg",
     pageSize: 20
   });
 
-  const { images: sportImages } = useImageGallery({
+  const {
+    images: sportImages,
+    setLoadMoreRef: sportLoadMoreRef,
+    hasMore: sportHasMore,
+    isLoading: sportIsLoading,
+  } = useImageGallery({
     folder: 'sport',
     fallbackImage: "DSC03440_hemqqo.jpg",
     pageSize: 20
   });
 
-  const { images: babiesImages } = useImageGallery({
-    folder: 'babies',
-    fallbackImage: "DSC03440_hemqqo.jpg",
-    pageSize: 20
-  });
+  // const { images: babiesImages } = useImageGallery({
+  //   folder: 'babies',
+  //   fallbackImage: "DSC03440_hemqqo.jpg",
+  //   pageSize: 20
+  // });
 
-  const { images: landscapeImages } = useImageGallery({
+  const {
+    images: landscapeImages,
+    setLoadMoreRef: landscapeLoadMoreRef,
+    hasMore: landscapeHasMore,
+    isLoading: landscapeIsLoading,
+  } = useImageGallery({
     folder: 'landscape',
     fallbackImage: "DSC08986_rjjyff.jpg",
     pageSize: 20
   });
 
-  const { images: mmuImages } = useImageGallery({
+  const {
+    images: mmuImages,
+    setLoadMoreRef: mmuLoadMoreRef,
+    hasMore: mmuHasMore,
+    isLoading: mmuIsLoading,
+  } = useImageGallery({
     folder: 'mmu',
     fallbackImage: "DSC08986_rjjyff.jpg",
     pageSize: 20
   });
 
-  // Limit to 10 images per genre and create gallery items
+  // Build genre sections — all images shown, loaded progressively via scroll
   const genres = [
     {
       name: "MMU Events",
-      images: mmuImages.slice(0, 30).map((src, idx) => ({
-        id: `mmu-${idx + 1}`,
-        src,
-        alt: `MMU ${idx + 1}`,
-      })),
+      key: "mmu",
+      images: mmuImages.map((src, idx) => ({ id: `mmu-${idx + 1}`, src, alt: `MMU ${idx + 1}` })),
+      setLoadMoreRef: mmuLoadMoreRef,
+      hasMore: mmuHasMore,
+      isLoading: mmuIsLoading,
     },
     {
       name: "Company Events",
-      images: companyImages.slice(0, 50).map((src, idx) => ({
-        id: `company-${idx + 1}`,
-        src,
-        alt: `Company ${idx + 1}`,
-      })),
+      key: "company",
+      images: companyImages.map((src, idx) => ({ id: `company-${idx + 1}`, src, alt: `Company ${idx + 1}` })),
+      setLoadMoreRef: companyLoadMoreRef,
+      hasMore: companyHasMore,
+      isLoading: companyIsLoading,
     },
     {
       name: "Sport Events",
-      images: sportImages.slice(0, 20).map((src, idx) => ({
-        id: `sport-${idx + 1}`,
-        src,
-        alt: `Sport ${idx + 1}`,
-      })),
+      key: "sport",
+      images: sportImages.map((src, idx) => ({ id: `sport-${idx + 1}`, src, alt: `Sport ${idx + 1}` })),
+      setLoadMoreRef: sportLoadMoreRef,
+      hasMore: sportHasMore,
+      isLoading: sportIsLoading,
     },
     {
       name: "Portraits",
-      images: portraitsImages.slice(0, 20).map((src, idx) => ({
-        id: `portraits-${idx + 1}`,
-        src,
-        alt: `Portraits ${idx + 1}`,
-      })),
+      key: "portraits",
+      images: portraitsImages.map((src, idx) => ({ id: `portraits-${idx + 1}`, src, alt: `Portraits ${idx + 1}` })),
+      setLoadMoreRef: portraitsLoadMoreRef,
+      hasMore: portraitsHasMore,
+      isLoading: portraitsIsLoading,
     },
     {
       name: "Prewedding",
-      images: preweddingImages.slice(0, 20).map((src, idx) => ({
-        id: `prewedding-${idx + 1}`,
-        src,
-        alt: `Prewedding ${idx + 1}`,
-      })),
+      key: "prewedding",
+      images: preweddingImages.map((src, idx) => ({ id: `prewedding-${idx + 1}`, src, alt: `Prewedding ${idx + 1}` })),
+      setLoadMoreRef: preweddingLoadMoreRef,
+      hasMore: preweddingHasMore,
+      isLoading: preweddingIsLoading,
     },
     // {
     //   name: "Babies",
-    //   images: babiesImages.slice(0, 20).map((src, idx) => ({
-    //     id: `babies-${idx + 1}`,
-    //     src,
-    //     alt: `Babies ${idx + 1}`,
-    //   })),
+    //   key: "babies",
+    //   images: babiesImages.map((src, idx) => ({ id: `babies-${idx + 1}`, src, alt: `Babies ${idx + 1}` })),
     // },
     {
       name: "Landscape",
-      images: landscapeImages.slice(0, 20).map((src, idx) => ({
-        id: `landscape-${idx + 1}`,
-        src,
-        alt: `Landscape ${idx + 1}`,
-      })),
+      key: "landscape",
+      images: landscapeImages.map((src, idx) => ({ id: `landscape-${idx + 1}`, src, alt: `Landscape ${idx + 1}` })),
+      setLoadMoreRef: landscapeLoadMoreRef,
+      hasMore: landscapeHasMore,
+      isLoading: landscapeIsLoading,
     }
   ];
 
@@ -254,7 +281,7 @@ const Portfolio = () => {
 
           {/* Genre Sections */}
           {genres.map((genre, genreIndex) => (
-            <section key={genre.name} className="mb-20 scroll-mt-32">
+            <section key={genre.key} className="mb-20 scroll-mt-32">
               <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-12">
                 <span className="bg-gradient-primary bg-clip-text text-transparent">{genre.name}</span>
               </h2>
@@ -280,6 +307,18 @@ const Portfolio = () => {
                   </div>
                 ))}
               </div>
+
+              {/* Infinite scroll sentinel + loading indicator */}
+              {genre.hasMore && (
+                <div
+                  ref={genre.setLoadMoreRef}
+                  className="flex justify-center items-center py-8"
+                >
+                  {genre.isLoading && (
+                    <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                  )}
+                </div>
+              )}
             </section>
           ))}
 
