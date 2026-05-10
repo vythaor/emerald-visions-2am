@@ -153,10 +153,29 @@ const Portfolio = () => {
     pageSize: 20
   });
 
+  const {
+    images: unitomImages,
+    setLoadMoreRef: unitomLoadMoreRef,
+    hasMore: unitomHasMore,
+    isLoading: unitomIsLoading,
+  } = useImageGallery({
+    folder: 'unitom',
+    fallbackImage: "DSC08986_rjjyff.jpg",
+    pageSize: 20
+  });
+
   // Build genre sections — all images shown, loaded progressively via scroll
   const genres = [
     {
-      name: "MMU Events",
+      name: "VOLUMES AT UNITOM 5/2025",
+      key: "unitom",
+      images: unitomImages.map((src, idx) => ({ id: `unitom-${idx + 1}`, src, alt: `UNITOM ${idx + 1}` })),
+      setLoadMoreRef: unitomLoadMoreRef,
+      hasMore: unitomHasMore,
+      isLoading: unitomIsLoading,
+    },
+    {
+      name: "Department of Life Sciences 3/2026",
       key: "mmu",
       images: mmuImages.map((src, idx) => ({ id: `mmu-${idx + 1}`, src, alt: `MMU ${idx + 1}` })),
       setLoadMoreRef: mmuLoadMoreRef,
