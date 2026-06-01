@@ -73,6 +73,46 @@ const manualBeforeAfterPhotos = [
   }
 ];
 
+const keywords = [
+  { text: "fantasic", size: "text-3xl md:text-4xl", color: "text-primary/90", weight: "font-bold", delay: "0.1s", glow: true },
+  { text: "hard work", size: "text-xl md:text-2xl", color: "text-muted-foreground", weight: "font-medium", delay: "0.2s", glow: false },
+  { text: "comfortable", size: "text-2xl md:text-3xl", color: "text-foreground", weight: "font-semibold", delay: "0.3s", glow: false },
+  { text: "great", size: "text-lg md:text-xl", color: "text-muted-foreground", weight: "font-normal", delay: "0.4s", glow: false },
+  { text: "delighted", size: "text-2xl md:text-3xl", color: "text-primary/80", weight: "font-semibold", delay: "0.5s", glow: true },
+  { text: "kind", size: "text-lg md:text-xl", color: "text-muted-foreground", weight: "font-medium", delay: "0.6s", glow: false },
+  { text: "amazing", size: "text-4xl md:text-5xl", color: "bg-gradient-primary bg-clip-text text-transparent glow-text", weight: "font-black", delay: "0.7s", glow: true },
+  { text: "beautiful", size: "text-2xl md:text-3xl", color: "text-foreground", weight: "font-bold", delay: "0.8s", glow: false },
+  { text: "enjoyable", size: "text-xl md:text-2xl", color: "text-primary/70", weight: "font-medium", delay: "0.9s", glow: false },
+];
+
+const clientQuotes = [
+  {
+    quote: "Sherry these are absolutely fantastic, thank you so much for all the work you did on the day and for the time you put in afterward to these. They look awesome and exactly what we envisioned, thanks so much.",
+    client: "Liam",
+    role: "Department of Life Science, MMU"
+  },
+  {
+    quote: "As Liam says, these look great. Thanks so much for your efforts on this. ",
+    client: "Gethin",
+    role: "Department of Life Science, MMU"
+  },
+  {
+    quote: "You were great to work with and I’m sure the students are going to be delighted with these images.",
+    client: "Alec",
+    role: "Manchester Fashion Institute, MMU"
+  },
+  {
+    quote: "I just wanted to say thank you for the photos, they turned out really beautiful and I love them.",
+    client: "Fadia",
+    role: "Student at Department of Life Science, MMU"
+  },
+  {
+    quote: "Fantastic, thank you very much for your hard work.",
+    client: "Kirsty",
+    role: "School of English, MMU"
+  }
+];
+
 const Portfolio = () => {
   // Fetch images for each genre with infinite scroll support
   const {
@@ -164,8 +204,27 @@ const Portfolio = () => {
     pageSize: 20
   });
 
+  const {
+    images: humanitiesImages,
+    setLoadMoreRef: humanitiesLoadMoreRef,
+    hasMore: humanitiesHasMore,
+    isLoading: humanitiesIsLoading,
+  } = useImageGallery({
+    folder: 'humanities',
+    fallbackImage: "DSC08986_rjjyff.jpg",
+    pageSize: 20
+  });
+
   // Build genre sections — all images shown, loaded progressively via scroll
   const genres = [
+    {
+      name: "Humanities Highlight Event",
+      key: "humanities",
+      images: humanitiesImages.map((src, idx) => ({ id: `humanities-${idx + 1}`, src, alt: `humanities ${idx + 1}` })),
+      setLoadMoreRef: humanitiesLoadMoreRef,
+      hasMore: humanitiesHasMore,
+      isLoading: humanitiesIsLoading,
+    },
     {
       name: "VOLUMES AT UNITOM 5/2025",
       key: "unitom",
@@ -276,7 +335,7 @@ const Portfolio = () => {
               <span className="bg-gradient-primary bg-clip-text text-transparent">Sherry Photography</span> Portfolio
             </h1>
             <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
-              Each section showcases my finest work in portraits, prewedding, event and landscape photography.
+              A photography enthusiast capture moments that tell stories <br />with passion and creativity.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
               <div className="mt-4">
@@ -300,45 +359,100 @@ const Portfolio = () => {
 
           {/* Genre Sections */}
           {genres.map((genre, genreIndex) => (
-            <section key={genre.key} className="mb-20 scroll-mt-32">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-12">
-                <span className="bg-gradient-primary bg-clip-text text-transparent">{genre.name}</span>
-              </h2>
+            <React.Fragment key={genre.key}>
+              <section className="mb-20 scroll-mt-32">
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-12">
+                  <span className="bg-gradient-primary bg-clip-text text-transparent">{genre.name}</span>
+                </h2>
 
-              {/* Masonry Grid */}
-              <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-5 gap-0">
-                {genre.images.map((image, index) => (
+                {/* Masonry Grid */}
+                <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-5 gap-0">
+                  {genre.images.map((image, index) => (
+                    <div
+                      key={image.id}
+                      className="group relative glass-photo rounded-[2px] overflow-hidden hover-lift hover:shadow-glow-photo hover:glass-photo-hover transition-all duration-500 animate-fade-in cursor-zoom-in break-inside-avoid mb-0"
+                      style={{ animationDelay: `${(genreIndex * 10 + index) * 0.05}s` }}
+                      onClick={() => openPreviewAt(genre.images, index)}
+                    >
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className="w-full h-auto object-cover transition-all duration-500 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-hover-light opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Infinite scroll sentinel + loading indicator */}
+                {genre.hasMore && (
                   <div
-                    key={image.id}
-                    className="group relative glass-photo rounded-[2px] overflow-hidden hover-lift hover:shadow-glow-photo hover:glass-photo-hover transition-all duration-500 animate-fade-in cursor-zoom-in break-inside-avoid mb-0"
-                    style={{ animationDelay: `${(genreIndex * 10 + index) * 0.05}s` }}
-                    onClick={() => openPreviewAt(genre.images, index)}
+                    ref={genre.setLoadMoreRef}
+                    className="flex justify-center items-center py-8"
                   >
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="w-full h-auto object-cover transition-all duration-500 group-hover:scale-110"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-hover-light opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    {genre.isLoading && (
+                      <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                    )}
+                  </div>
+                )}
+              </section>
+
+              {/* Feedbacks Section - Inserted between the first 3 genres and the rest (after index 2) */}
+              {genreIndex === 2 && (
+                <section id="feedbacks-section" className="glass-card rounded-3xl p-8 md:p-12 my-20 animate-fade-in border border-primary/20">
+                  <div className="text-center mb-16">
+                    <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
+                      Client <span className="bg-gradient-primary bg-clip-text text-transparent">Feedbacks</span>
+                    </h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto">
+                      Feedback for my work at MMU
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    {/* Left Column - Sentiments Cloud */}
+                    <div className="lg:col-span-5 flex flex-col justify-between p-6 rounded-2xl glass-strong border border-primary/10 min-h-[300px]">
+                      <div>
+                        <h3 className="text-xl font-semibold mb-2 text-primary-gradient">Keywords</h3>
+                        <p className="text-sm text-muted-foreground mb-6">Common sentiments</p>
+                      </div>
+                      <div className="flex flex-wrap gap-4 items-center justify-center mb-8">
+                        {keywords.map((kw, i) => (
+                          <span
+                            key={i}
+                            className={`cursor-default px-3 py-1 rounded-full transition-all duration-300 hover:scale-110 hover:glow-text ${kw.size} ${kw.weight} ${kw.color}`}
+                            style={{
+                              animationDelay: kw.delay,
+                              textShadow: kw.glow ? '0 0 15px hsl(var(--primary) / 0.4)' : 'none'
+                            }}
+                          >
+                            {kw.text}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Right Column - Client Quotes */}
+                    <div className="lg:col-span-7 flex flex-col gap-4 max-h-[500px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
+                      {clientQuotes.map((q, i) => (
+                        <div key={i} className="p-5 rounded-xl glass-strong border border-white/5 hover:border-primary/30 transition-all duration-300 hover:translate-x-1 group">
+                          <p className="text-foreground/95 italic mb-3 text-sm md:text-base leading-relaxed">
+                            "{q.quote}"
+                          </p>
+                          <div className="flex justify-between items-center text-xs">
+                            <span className="font-semibold text-primary/80 group-hover:text-primary transition-colors">{q.client}</span>
+                            <span className="text-muted-foreground">{q.role}</span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
-
-              {/* Infinite scroll sentinel + loading indicator */}
-              {genre.hasMore && (
-                <div
-                  ref={genre.setLoadMoreRef}
-                  className="flex justify-center items-center py-8"
-                >
-                  {genre.isLoading && (
-                    <Loader2 className="w-6 h-6 animate-spin text-primary" />
-                  )}
-                </div>
+                </section>
               )}
-            </section>
+            </React.Fragment>
           ))}
 
           {/* Before/After Comparison Section */}
